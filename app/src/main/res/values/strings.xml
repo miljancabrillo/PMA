@@ -13,4 +13,10 @@
     <string name="menu_slideshow">Slideshow</string>
 
     <string name="home_second">Home Second</string>
+    <string name="title_activity_day_preview_tabs">DayPreviewTabsActivity</string>
+    <string name="tab_text_1">Meals and activities</string>
+    <string name="tab_text_2">Map</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

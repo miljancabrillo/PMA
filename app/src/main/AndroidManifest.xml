@@ -8,14 +8,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light">
-        <activity android:name=".activities.DayPreviewActivity"></activity>
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".activities.DayPreviewTabsActivity"
+            android:label="Daily preview"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".activities.MainActivity"></activity>
+
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".activities.RegistrationActivity" />
+
         <activity android:name=".activities.LoginActivity" />
+
         <activity android:name=".LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +32,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB_tObnN8gbKvHIUrhrz679nhP19DUqZ0o" />
     </application>
 
 </manifest>
