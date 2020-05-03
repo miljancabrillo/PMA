@@ -9,10 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DailySummary {
+public class Activity {
 
-    private Date day;
-    private float kcalIn;
-    private float kcalOut;
+    //private ActivityType type;
+    private String name;
+    private Date dateAndTime;
+    private float duration;
+    private float kcalBurned;
 
 }

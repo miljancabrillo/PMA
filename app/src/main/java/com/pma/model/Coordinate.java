@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DailySummary {
+public class Coordinate {
 
-    private Date day;
-    private float kcalIn;
-    private float kcalOut;
-
+    private float lon;
+    private float lat;
+    private Date dateAndTime;
 }

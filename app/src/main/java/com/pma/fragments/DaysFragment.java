@@ -42,7 +42,7 @@ public class DaysFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         adapter = new DaysAdapter();
-        adapter.setDays(DataMock.getDailySummaries());
+        adapter.setDays(DataMock.getInstance().getDailySummaries());
 
         recyclerView.setAdapter(adapter);
 
@@ -60,7 +60,7 @@ public class DaysFragment extends Fragment {
         @Override
         public DaysHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.day_preview, parent, false);
+                    .inflate(R.layout.day_preview_recycler_item, parent, false);
             return new DaysHolder(itemView);
         }
 

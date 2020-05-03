@@ -1,7 +1,5 @@
 package com.pma.model;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,10 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DailySummary {
+public class ActivityType {
 
-    private Date day;
-    private float kcalIn;
-    private float kcalOut;
-
+    private String name;
 }
