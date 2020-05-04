@@ -17,6 +17,7 @@ public class Meal {
     private int id;
     private Date dateAndTime;
     private ArrayList<GroceryAndAmountPair> groceryAndAmountPairs;
+    private String type;
 
     //ovo se mozda bude racunalo al za sada ovako
     private float totalKcal;

@@ -39,6 +39,8 @@ public class MealPreviewRecyclerAdapter extends RecyclerView.Adapter<MealPreview
         holder.mealNo.setText(Integer.toString(position + 1) + ".");
         holder.mealTime.setText(meal.getTimeString());
         holder.mealKcal.setText(df.format(meal.getTotalKcal()) + " kcal");
+        holder.mealType.setText(meal.getType());
+
     }
 
     @Override
@@ -56,12 +58,15 @@ public class MealPreviewRecyclerAdapter extends RecyclerView.Adapter<MealPreview
         TextView mealNo;
         TextView mealTime;
         TextView mealKcal;
+        TextView mealType;
+
 
         public MealHolder(@NonNull View itemView) {
             super(itemView);
             mealNo = itemView.findViewById(R.id.meal_no);
             mealTime = itemView.findViewById(R.id.meal_time);
             mealKcal = itemView.findViewById(R.id.meal_total_kcal);
+            mealType = itemView.findViewById(R.id.meal_type);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

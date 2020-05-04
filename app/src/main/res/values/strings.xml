@@ -19,4 +19,15 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab_title3">Groceries</string>
+    <string name="tab_title4">Meal preview</string>
+
+
+    <string-array name="groceries_categories">
+        <item>Meats</item>
+        <item>Fruits</item>
+        <item>Vegetables</item>
+        <item>Dairy products</item>
+    </string-array>
+
 </resources>

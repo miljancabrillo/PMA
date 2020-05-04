@@ -34,10 +34,14 @@ public class DataMock {
         Activity a1 = new Activity("Running", new Date(), 10, 89);
         Activity a2 = new Activity("Weightlifting", new Date(), 50, 200);
         Activity a3 = new Activity("Swimming", new Date(), 30, 250);
+        Activity a4 = new Activity("Swimming", new Date(), 30, 250);
+        Activity a5 = new Activity("Swimming", new Date(), 30, 250);
         activities = new ArrayList<>();
         activities.add(a1);
         activities.add(a2);
         activities.add(a3);
+        activities.add(a4);
+        activities.add(a5);
 
         groceries = new ArrayList<>();
         Grocery g1 = new Grocery(1, "Chicken breast", 129, 23, 0, 5);
@@ -48,11 +52,13 @@ public class DataMock {
         groceries.add(g3);
 
         meals = new ArrayList<>();
-        Meal m1 = new Meal(1, new Date(), null, 400, 20, 30, 10);
+        Meal m1 = new Meal(1, new Date(), null,"Breakfast", 400, 20, 30, 10);
         m1.addGroceryAmountPair(new GroceryAndAmountPair(groceries.get(1), 100));
         m1.addGroceryAmountPair(new GroceryAndAmountPair(groceries.get(2), 100));
+        m1.addGroceryAmountPair(new GroceryAndAmountPair(groceries.get(0), 200));
 
-        Meal m2 = new Meal(2, new Date(), null, 900, 70, 30, 10);
+
+        Meal m2 = new Meal(2, new Date(), null, "Lunch", 900, 70, 30, 10);
         m2.addGroceryAmountPair(new GroceryAndAmountPair(groceries.get(0), 100));
         m2.addGroceryAmountPair(new GroceryAndAmountPair(groceries.get(2), 100));
 

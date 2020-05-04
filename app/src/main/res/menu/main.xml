@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_new_meal"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="Add meal"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_new_activity"
+        android:orderInCategory="100"
+        android:title="Add activity"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_log_out"
+        android:orderInCategory="100"
+        android:title="Log out"
+        app:showAsAction="never" />
+
 </menu>

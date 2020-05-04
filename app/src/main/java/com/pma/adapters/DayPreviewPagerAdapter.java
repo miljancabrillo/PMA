@@ -16,13 +16,13 @@ import com.pma.fragments.MyMapFragment;
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class TabsPagerAdapter extends FragmentPagerAdapter {
+public class DayPreviewPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2};
     private final Context mContext;
 
-    public TabsPagerAdapter(Context context, FragmentManager fm) {
+    public DayPreviewPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
     }

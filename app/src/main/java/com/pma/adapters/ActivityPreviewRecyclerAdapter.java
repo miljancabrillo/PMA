@@ -60,7 +60,7 @@ public class ActivityPreviewRecyclerAdapter extends Adapter <ActivityPreviewRecy
             activityName = itemView.findViewById(R.id.activity_name);
             activityDuration = itemView.findViewById(R.id.activity_duration);
             activityKcalBurend = itemView.findViewById(R.id.activity_kcal_burned);
-
         }
+
     }
 }
