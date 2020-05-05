@@ -57,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, AddMealTabsActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.action_new_grocery:
+                Intent i = new Intent(this, AddGroceryActivity.class);
+                startActivity(i);
+                return true;
             case R.id.action_log_out:
                 SharedPreferences preferences = getSharedPreferences("com.pma.LOGIN_PREFERENCES", Context.MODE_PRIVATE);
                 preferences.edit().putString("userId", "");

@@ -15,6 +15,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_new_grocery"
+        android:orderInCategory="100"
+        android:title="Add grocery"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_log_out"
         android:orderInCategory="100"
         android:title="Log out"

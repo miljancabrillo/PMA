@@ -37,6 +37,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.AddGroceryActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="Add grocery"
+            android:parentActivityName=".activities.MainActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
