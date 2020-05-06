@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_days, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_days, R.id.nav_groceries, R.id.nav_slideshow)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -65,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
                 logOutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(logOutIntent);
                 finish();
+                return true;
+            case R.id.action_new_activity:
+                Intent intent2 = new Intent(this, AddActivityActivity.class);
+                startActivity(intent2);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -28,10 +28,11 @@ public class GroceryRecyclerAdapter extends  RecyclerView.Adapter<GroceryRecycle
             View itemView = LayoutInflater.from(parent.getContext())
             .inflate(R.layout.grocery_recycler_item, parent, false);
             return new GroceryHolder(itemView);
-            }
+
+    }
 
     @Override
-    public void onBindViewHolder(@NonNull GroceryHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final GroceryHolder holder, final int position) {
         Grocery grocery = groceries.get(position);
         holder.groceryName.setText(grocery.getName());
         holder.itemView.setTag(groceries.get(position));
@@ -42,16 +43,19 @@ public class GroceryRecyclerAdapter extends  RecyclerView.Adapter<GroceryRecycle
             holder.itemView.setBackgroundColor(Color.GRAY);
         }
 
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 int previousItem = selectedItem;
                 selectedItem = position;
-
                 notifyItemChanged(previousItem);
                 notifyItemChanged(position);
+
+                if(listener != null){
+                    listener.onGroceryClicked(groceries.get(holder.getAdapterPosition()));
+                }
+
             }
         });
     }
@@ -79,7 +83,7 @@ public class GroceryRecyclerAdapter extends  RecyclerView.Adapter<GroceryRecycle
     }
 
     public interface GroceryClickListener{
-        public void onGroceryClicked(int groceryId);
+        public void onGroceryClicked(Grocery grocery);
     }
 
     public void setListener(GroceryClickListener listener) {
