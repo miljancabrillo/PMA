@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" android:orientation="vertical"
+    android:fillViewport="true"
+    tools:context=".fragments.GraphsFragment">
+
+    <EditText
+        android:hint="Select date from"
+        android:id="@+id/date_input"
+        android:inputType="none"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/border"/>
+
+    <EditText
+        android:hint="Select date to"
+        android:id="@+id/date_input1"
+        android:inputType="none"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/border"/>
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:foregroundTintMode="multiply"
+        android:spinnerMode="dropdown"
+        android:background="@drawable/border"
+        android:layout_marginTop="10dp" />
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/bar_chart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:minHeight="275dp"
+        android:minWidth="320dp"/>
+
+    <Button
+        android:id="@+id/graph_button"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:paddingHorizontal="20dp"
+        android:text="Show" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

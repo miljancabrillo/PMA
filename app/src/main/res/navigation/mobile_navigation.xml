@@ -36,8 +36,8 @@
         tools:layout="@layout/fragment_groceries" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.pma.fragments.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_graph"
+        android:name="com.pma.fragments.GraphsFragment"
+        android:label="Graphs"
+        tools:layout="@layout/fragment_graphs" />
 </navigation>
