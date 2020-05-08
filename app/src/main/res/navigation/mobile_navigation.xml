@@ -9,25 +9,7 @@
         android:id="@+id/nav_days"
         android:name="com.pma.fragments.DaysFragment"
         android:label="Days"
-        tools:layout="@layout/fragment_days">
-
-        <action
-            android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
-            app:destination="@id/nav_home_second" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_home_second"
-        android:name="com.pma.ui.home.HomeSecondFragment"
-        android:label="@string/home_second"
-        tools:layout="@layout/fragment_home_second">
-        <action
-            android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
-            app:destination="@id/nav_days" />
-
-        <argument
-            android:name="myArg"
-            app:argType="string" />
-    </fragment>
+        tools:layout="@layout/fragment_days" />
 
     <fragment
         android:id="@+id/nav_groceries"
@@ -40,4 +22,18 @@
         android:name="com.pma.fragments.GraphsFragment"
         android:label="Graphs"
         tools:layout="@layout/fragment_graphs" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.pma.fragments.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.pma.fragments.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/settings" />
+
 </navigation>

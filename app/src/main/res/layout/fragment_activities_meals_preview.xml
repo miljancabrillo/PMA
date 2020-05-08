@@ -10,16 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".fragments.ActivitiesMealsPreviewFragment">
+        tools:context=".fragments.ActivitiesMealsPreviewFragment"
+        android:paddingHorizontal="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_marginTop="15dp"
+            android:paddingTop="5dp"
             android:text="Activities"
             android:textStyle="bold" />
 
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="2dp"
+            app:cardBackgroundColor="#ffffff">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/activities_recycler_view"
@@ -29,13 +35,20 @@
             android:scrollbarThumbVertical="@android:color/darker_gray"
             android:scrollbars="vertical" />
 
+        </androidx.cardview.widget.CardView>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_marginTop="15dp"
+
             android:text="Meals"
             android:textStyle="bold" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="2dp"
+            app:cardBackgroundColor="#ffffff">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/meals_recycler_view"
@@ -43,6 +56,8 @@
             android:layout_height="wrap_content"
             tools:itemCount="12"
             tools:listitem="@layout/meal_preview_recycler_item" />
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:layout_width="wrap_content"
@@ -55,7 +70,7 @@
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pie_chart"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:minHeight="150dp"
             android:maxHeight="250dp"/>

@@ -29,6 +29,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:ems="10"
+            android:padding="10dp"
+            android:background="@drawable/border"
             android:hint="Email"
             android:inputType="textEmailAddress" />
 
@@ -39,6 +41,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:ems="10"
+            android:padding="10dp"
+            android:background="@drawable/border"
             android:hint="Password (min 5)"
             android:inputType="textPassword" />
 
@@ -48,7 +52,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
+            android:padding="10dp"
             android:ems="10"
+            android:background="@drawable/border"
             android:inputType="numberDecimal"
             android:hint="Weight" />
 
@@ -58,7 +64,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
+            android:padding="10dp"
             android:ems="10"
+            android:background="@drawable/border"
             android:inputType="numberDecimal"
             android:hint="Height" />
 
@@ -68,7 +76,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
+            android:background="@drawable/border"
             android:ems="10"
+            android:padding="10dp"
             android:hint="Age"
             android:inputType="number" />
 
@@ -77,6 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:theme="@style/ButtonTheme"
             android:layout_marginTop="20dp"
             android:onClick="registerClick"
             android:paddingHorizontal="60dp"

@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="6dp"
     android:weightSum="1"
     tools:context=".fragments.GroceriesFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="5dp"
         android:orientation="horizontal"
         android:weightSum="1">
 
@@ -31,30 +32,39 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="1dp"
             android:layout_weight="0.10"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_search" />
+            android:theme="@style/ButtonTheme"
+            android:src="@drawable/ic_search_white" />
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/groceries_recycler_view"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="5dp"
-        android:layout_marginTop="1dp"
+        app:cardCornerRadius="2dp"
         android:layout_weight="1"
-        android:scrollbarSize="5dp"
-        android:scrollbarThumbVertical="@android:color/darker_gray"
-        android:scrollbars="vertical" />
+        android:layout_marginRight="5dp"
+        app:cardBackgroundColor="#ffffff">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/groceries_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:scrollbarSize="5dp"
+            android:scrollbarThumbVertical="@android:color/darker_gray"
+            android:scrollbars="vertical" />
+
+    </androidx.cardview.widget.CardView>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingRight="3dp"
         android:layout_marginTop="2dp"
-        android:layout_marginBottom="15dp"
-        android:paddingHorizontal="5dp">
+        android:paddingBottom="25dp">
 
         <TextView
             android:layout_width="wrap_content"

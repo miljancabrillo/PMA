@@ -3,118 +3,122 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".fragments.AddMealPreviewFragment">
+    tools:context=".fragments.AddMealPreviewFragment"
+    android:paddingHorizontal="10dp">
 
     <TextView
         android:layout_width="match_parent"
-        android:paddingHorizontal="3dp"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="Groceries"/>
+        android:text="Groceries"
+        android:textStyle="bold" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#ffffff"
+        app:cardCornerRadius="2dp">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:paddingHorizontal="3dp"
-        android:layout_marginTop="7dp"
+        android:id="@+id/new_meal_grocery_amount_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/new_meal_grocery_amount_recycler"/>
+        android:layout_marginTop="7dp"/>
+
+    </androidx.cardview.widget.CardView>
 
     <RelativeLayout
-        android:paddingHorizontal="3dp"
-        android:layout_marginTop="7dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:text="Total calories"
-            android:textStyle="bold"
-            android:layout_alignParentStart="true"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:layout_alignParentEnd="true"
             android:text="200 kcal"
-            android:layout_alignParentEnd="true"/>
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_marginTop="7dp"
         android:layout_width="match_parent"
-        android:paddingHorizontal="3dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:layout_alignParentStart="true"
             android:text="Total protein"
-            android:layout_alignParentStart="true"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:layout_alignParentEnd="true"
             android:text="200 gr"
-            android:layout_alignParentEnd="true"/>
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_marginTop="7dp"
-        android:paddingHorizontal="3dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp">
 
         <TextView
             android:layout_width="wrap_content"
-            android:textStyle="bold"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:text="Total carbohydrates"
-            android:layout_alignParentStart="true"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:textStyle="bold"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:text="300 gr"
-            android:layout_alignParentEnd="true"/>
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_marginTop="7dp"
         android:layout_width="match_parent"
-        android:paddingHorizontal="3dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:text="Total fat"
-            android:textStyle="bold"
-            android:layout_alignParentStart="true"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:text="200 gr"
-            android:textStyle="bold"
-            android:layout_alignParentEnd="true"/>
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
         android:layout_gravity="center"
-        android:text="Finish"/>
-
+        android:layout_marginTop="7dp"
+        android:theme="@style/ButtonTheme"
+        android:text="Finish" />
 
 
 </LinearLayout>

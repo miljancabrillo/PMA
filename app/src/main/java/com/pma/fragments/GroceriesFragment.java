@@ -65,7 +65,7 @@ public class GroceriesFragment extends Fragment implements GroceryRecyclerAdapte
 
     @Override
     public void onGroceryClicked(Grocery grocery) {
-        ((TextView)getView().findViewById(R.id.kcal)).setText(grocery.getKcalPer100gr() + " kcalsafa");
+        ((TextView)getView().findViewById(R.id.kcal)).setText(grocery.getKcalPer100gr() + " kcal");
         ((TextView)getView().findViewById(R.id.protein)).setText(grocery.getProteinPer100gr() + " gr");
         ((TextView)getView().findViewById(R.id.fat)).setText(grocery.getFatPer100gr() + " gr");
         ((TextView)getView().findViewById(R.id.carb)).setText(grocery.getCarbPer100gr() + " gr");

@@ -1,7 +1,9 @@
 package com.pma;
 
 
+
 import com.pma.model.Activity;
+import com.pma.model.ActivityType;
 import com.pma.model.DailySummary;
 import com.pma.model.Grocery;
 import com.pma.model.GroceryAndAmountPair;
@@ -20,6 +22,7 @@ public class DataMock {
     private ArrayList<Activity> activities;
     private ArrayList<Grocery> groceries;
     private ArrayList<Meal> meals;
+    private ArrayList<ActivityType> activityTypes;
 
 
     private DataMock(){
@@ -34,14 +37,12 @@ public class DataMock {
         Activity a1 = new Activity("Running", new Date(), 10, 89);
         Activity a2 = new Activity("Weightlifting", new Date(), 50, 200);
         Activity a3 = new Activity("Swimming", new Date(), 30, 250);
-        Activity a4 = new Activity("Swimming", new Date(), 30, 250);
-        Activity a5 = new Activity("Swimming", new Date(), 30, 250);
+        Activity a4 = new Activity("Bowling", new Date(), 30, 50);
         activities = new ArrayList<>();
         activities.add(a1);
         activities.add(a2);
         activities.add(a3);
         activities.add(a4);
-        activities.add(a5);
 
         groceries = new ArrayList<>();
         Grocery g1 = new Grocery(1, "Chicken breast", 129, 23, 0, 5);
@@ -62,8 +63,26 @@ public class DataMock {
         m2.addGroceryAmountPair(new GroceryAndAmountPair(groceries.get(0), 100));
         m2.addGroceryAmountPair(new GroceryAndAmountPair(groceries.get(2), 100));
 
+        Meal m3 = new Meal(2, new Date(), null, "Dinner", 700, 70, 30, 10);
+        m2.addGroceryAmountPair(new GroceryAndAmountPair(groceries.get(0), 100));
+        m2.addGroceryAmountPair(new GroceryAndAmountPair(groceries.get(2), 100));
+
         meals.add(m1);
         meals.add(m2);
+        meals.add(m3);
+
+        activityTypes = new ArrayList<>();
+        ActivityType at1 = new ActivityType("Running");
+        ActivityType at2 = new ActivityType("Swimming");
+        ActivityType at3 = new ActivityType("Bowling");
+        ActivityType at4 = new ActivityType("Cycling");
+        ActivityType at5 = new ActivityType("Weightlifting");
+
+        activityTypes.add(at1);
+        activityTypes.add(at2);
+        activityTypes.add(at3);
+        activityTypes.add(at4);
+        activityTypes.add(at5);
 
     }
 

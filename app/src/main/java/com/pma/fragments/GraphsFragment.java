@@ -1,6 +1,7 @@
 package com.pma.fragments;
 
 import android.app.DatePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -17,9 +18,11 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.github.mikephil.charting.charts.BarChart;
 
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.pma.R;
 import com.pma.view_model.GraphsViewModel;
@@ -87,17 +90,18 @@ public class GraphsFragment extends Fragment {
 
         barChart.getLegend().setEnabled(false);
         barChart.getDescription().setEnabled(false);
+        barChart.setBorderColor(Color.RED);
 
         ArrayList<BarEntry> BarEntry = new ArrayList<>();
 
-        BarEntry.add(new BarEntry(2f, 0));
-        BarEntry.add(new BarEntry(4f, 1));
-        BarEntry.add(new BarEntry(6f, 2));
-        BarEntry.add(new BarEntry(8f, 3));
-        BarEntry.add(new BarEntry(7f, 4));
-        BarEntry.add(new BarEntry(3f, 5));
+        BarEntry.add(new BarEntry(0, 2220));
+        BarEntry.add(new BarEntry(1, 2000));
+        BarEntry.add(new BarEntry(2, 1900));
+        BarEntry.add(new BarEntry(3, 1900));
+
 
         BarDataSet dataSet = new BarDataSet(BarEntry, "");
+        dataSet.setColor(Color.parseColor("#de9621"));
 
         ArrayList<String> theDates = new ArrayList<>();
 
@@ -105,8 +109,19 @@ public class GraphsFragment extends Fragment {
         theDates.add("09.04.2020.");
         theDates.add("10.04.2020.");
         theDates.add("11.04.2020.");
-        theDates.add("12.04.2020.");
-        theDates.add("13.04.2020.");
+
+        //uklanjanje sa srane osa
+        barChart.getAxisRight().setDrawLabels(false);
+        barChart.getAxisLeft().setDrawLabels(false);
+        barChart.getAxisLeft().setDrawGridLines(false);
+        barChart.getXAxis().setDrawGridLines(false);
+        barChart.getAxisLeft().setAxisMinimum(0);
+
+
+        barChart.getXAxis().setGranularity(1f); // only intervals of 1 day
+        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(theDates));
+
 
         BarData data = new BarData(dataSet);
         barChart.setData(data);

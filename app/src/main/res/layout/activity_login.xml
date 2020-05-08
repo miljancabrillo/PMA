@@ -25,7 +25,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:background="@drawable/border"
         android:hint="Email"
+        android:padding="10dp"
         android:layout_gravity="center"
         android:inputType="textEmailAddress" />
 
@@ -34,9 +36,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:background="@drawable/border"
         android:hint="Password"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
+        android:padding="10dp"
         android:inputType="textPassword" />
 
     <Button
@@ -46,6 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:paddingHorizontal="60dp"
+        android:theme="@style/ButtonTheme"
         android:text="LOGIN"
         android:onClick="loginClick"/>
     <Button

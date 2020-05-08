@@ -40,7 +40,7 @@ public class GroceryRecyclerAdapter extends  RecyclerView.Adapter<GroceryRecycle
         holder.itemView.setBackgroundColor(Color.WHITE);
 
         if (selectedItem == position) {
-            holder.itemView.setBackgroundColor(Color.GRAY);
+            holder.itemView.setBackgroundColor(Color.parseColor("#dee1e3"));
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:icon="@drawable/ic_sync_black_24dp"
+        android:key="notifications"
+        android:summary="Synchronise data with server when network connection is available"
+        android:title="Data synchronization"/>
+
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="theme"
+        android:icon="@drawable/ic_theme"
+        android:title="Dark theme" />
+
+    <SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:icon="@drawable/ic_location"
+        android:key="location"
+        android:summary="Allow app access to location in background"
+        android:title="Location"/>
+
+</PreferenceScreen>
