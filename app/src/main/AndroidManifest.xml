@@ -47,7 +47,7 @@
             android:label="Add grocery"
             android:parentActivityName=".activities.MainActivity" />
 
-        
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB_tObnN8gbKvHIUrhrz679nhP19DUqZ0o" />
