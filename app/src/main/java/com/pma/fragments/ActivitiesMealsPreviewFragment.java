@@ -6,15 +6,22 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -31,6 +38,7 @@ import com.pma.adapters.MealPreviewRecyclerAdapter;
 import com.pma.model.Meal;
 import com.pma.view_model.DayPreviewViewModel;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +46,11 @@ import java.util.List;
 public class ActivitiesMealsPreviewFragment extends Fragment implements MealPreviewRecyclerAdapter.MealClickListener {
 
     private DayPreviewViewModel viewModel;
+    private TextView totalKcal;
+    private TextView totalProtein;
+    private TextView totalCarb;
+    private TextView totalFat;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,8 +59,15 @@ public class ActivitiesMealsPreviewFragment extends Fragment implements MealPrev
 
         viewModel = new ViewModelProvider(requireActivity()).get(DayPreviewViewModel.class);
 
+        totalKcal = rootView.findViewById(R.id.total_kcals);
+        totalProtein = rootView.findViewById(R.id.total_proteins);
+        totalCarb = rootView.findViewById(R.id.total_carbs);
+        totalFat = rootView.findViewById(R.id.total_fats);
+
+
+
         //ubacivanje podataka za recyclev view aktivnosti
-        RecyclerView activitiesRecycler = rootView.findViewById(R.id.activities_recycler_view);
+        final RecyclerView activitiesRecycler = rootView.findViewById(R.id.activities_recycler_view);
         activitiesRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         activitiesRecycler.setHasFixedSize(true);
 
@@ -65,17 +85,23 @@ public class ActivitiesMealsPreviewFragment extends Fragment implements MealPrev
 
         final PieChart pieChart = rootView.findViewById(R.id.pie_chart);
 
-
         viewModel.getMeals().observe(getViewLifecycleOwner(), new Observer<List<Meal>>() {
             @Override
             public void onChanged(List<Meal> meals) {
                 mealsAdapter.setMeals((ArrayList<Meal>) meals);
-                float protein = 0, carbs = 0, fats = 0;
+                float protein = 0, carbs = 0, fats = 0, totalKcals = 0;
                 for (Meal meal : meals) {
                     protein += meal.getTotalProtein();
                     carbs += meal.getTotalCarb();
                     fats += meal.getTotalFat();
+                    totalKcals += meal.getTotalKcal();
                 }
+                DecimalFormat df = new DecimalFormat("#.##");
+                totalKcal.setText(df.format(totalKcals) + " gr");
+                totalProtein.setText(df.format(protein) + " gr");
+                totalFat.setText(df.format(fats) + " gr");
+                totalCarb.setText(df.format(carbs) + " kcal");
+
                 addChartData(pieChart, protein, carbs, fats);
             }
         });
@@ -93,9 +119,9 @@ public class ActivitiesMealsPreviewFragment extends Fragment implements MealPrev
 
     private void addChartData(PieChart pieChart, float protein, float carbs, float fats) {
 
-        pieChart.setEntryLabelColor(Color.parseColor("#000000"));
+        pieChart.setDrawEntryLabels(false);
+        pieChart.setDrawSliceText(false);
         pieChart.getLegend().setEnabled(false);
-        //pieChart.getLegend().setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         pieChart.setDescription(new Description());
         pieChart.setHoleRadius(10f);
         pieChart.setTransparentCircleAlpha(0);
@@ -124,6 +150,7 @@ public class ActivitiesMealsPreviewFragment extends Fragment implements MealPrev
 
         //create pie data object
         PieData pieData = new PieData(pieDataSet);
+        pieData.setDrawValues(false);
         pieChart.setData(pieData);
         pieChart.invalidate();
 
