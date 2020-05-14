@@ -6,13 +6,17 @@ import android.os.AsyncTask;
 import androidx.annotation.NonNull;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.pma.model.Grocery;
+import com.pma.model.GroceryAndAmountPair;
+import com.pma.model.Meal;
 import com.pma.model.User;
 
 
-@androidx.room.Database(entities = {User.class, Grocery.class}, version = 1)
+@androidx.room.Database(entities = {User.class, Grocery.class, GroceryAndAmountPair.class, Meal.class}, version = 2)
+@TypeConverters({DateIntConverter.class})
 public abstract class Database extends RoomDatabase {
 
     private static Database instance;
@@ -20,6 +24,10 @@ public abstract class Database extends RoomDatabase {
     public abstract UserDao userDao();
 
     public abstract  GroceryDao groceryDao();
+
+    public abstract  GroceryAndAmountPairDao pairDao();
+
+    public  abstract  MealDao mealDao();
 
     public static synchronized Database getInstance(Context context){
         if(instance == null){

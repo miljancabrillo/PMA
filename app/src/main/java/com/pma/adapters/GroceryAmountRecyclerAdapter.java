@@ -3,7 +3,9 @@ package com.pma.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 public class GroceryAmountRecyclerAdapter extends RecyclerView.Adapter<GroceryAmountRecyclerAdapter.GroceryAmountHolder> {
 
     private ArrayList<GroceryAndAmountPair> pairs = new ArrayList<>();
+    private GroceryAmountPairListener listener;
 
     @NonNull
     @Override
@@ -36,8 +39,7 @@ public class GroceryAmountRecyclerAdapter extends RecyclerView.Adapter<GroceryAm
 
         holder.groceryName.setText(pair.getGrocery().getName());
         holder.groceryAmount.setText(Float.toString(pair.getAmount()) + " gr");
-        //izracun uraditi
-        holder.groceryKcal.setText("100 kcal");
+        holder.groceryKcal.setText(df.format(pair.getKcals()) + " kcal");
 
     }
 
@@ -56,13 +58,31 @@ public class GroceryAmountRecyclerAdapter extends RecyclerView.Adapter<GroceryAm
         TextView groceryName;
         TextView groceryAmount;
         TextView groceryKcal;
+        ImageButton removeButton;
 
         public GroceryAmountHolder(@NonNull View itemView) {
             super(itemView);
             groceryName = itemView.findViewById(R.id.grocery_name);
             groceryAmount = itemView.findViewById(R.id.grocery_amount);
             groceryKcal = itemView.findViewById(R.id.grocery_kcal);
+            removeButton = itemView.findViewById(R.id.remove_button);
+
+            removeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener != null){
+                        listener.onGroceryAmountPairClicked(pairs.get(getAdapterPosition()));
+                    }
+                }
+            });
         }
     }
 
+    public void setListener(GroceryAmountPairListener listener){
+        this.listener = listener;
+    }
+
+    public interface GroceryAmountPairListener{
+        public void onGroceryAmountPairClicked(GroceryAndAmountPair pair);
+    }
 }

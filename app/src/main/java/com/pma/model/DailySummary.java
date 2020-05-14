@@ -1,5 +1,8 @@
 package com.pma.model;
 
+import androidx.annotation.Nullable;
+import androidx.room.Ignore;
+
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -12,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class DailySummary {
 
     private Date day;
-    private float kcalIn;
-    private float kcalOut;
+    private Float kcalIn;
+    private Float kcalOut;
 
 }

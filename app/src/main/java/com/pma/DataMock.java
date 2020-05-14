@@ -26,9 +26,9 @@ public class DataMock {
 
 
     private DataMock(){
-        DailySummary ds1 = new DailySummary(new Date(), 2100, 2330);
-        DailySummary ds2 = new DailySummary(new Date(), 2200, 2230);
-        DailySummary ds3 = new DailySummary(new Date(), 2800, 2390);
+        DailySummary ds1 = new DailySummary(new Date(), 2100f, 2330f);
+        DailySummary ds2 = new DailySummary(new Date(), 2200f, 2230f);
+        DailySummary ds3 = new DailySummary(new Date(), 2800f, 2390f);
         dailySummaries = new ArrayList<>();
         dailySummaries.add(ds1);
         dailySummaries.add(ds2);
@@ -45,9 +45,9 @@ public class DataMock {
         activities.add(a4);
 
         groceries = new ArrayList<>();
-        Grocery g1 = new Grocery(1, "Chicken breast", 129, 23, 0, 5);
-        Grocery g2 = new Grocery(2, "Oats", 390, 17, 59, 0);
-        Grocery g3 = new Grocery(3, "Ananas", 60, 0, 13, 0);
+        Grocery g1 = new Grocery(1, "Chicken breast", 129, 23, 0, 5,false);
+        Grocery g2 = new Grocery(2, "Oats", 390, 17, 59, 0,false);
+        Grocery g3 = new Grocery(3, "Ananas", 60, 0, 13, 0,false);
         groceries.add(g1);
         groceries.add(g2);
         groceries.add(g3);

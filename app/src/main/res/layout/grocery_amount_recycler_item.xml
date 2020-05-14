@@ -6,13 +6,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="3dp">
+        android:paddingVertical="3dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:id="@+id/grocery_name"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
             android:text="Chicken breast"/>
 
@@ -20,6 +21,7 @@
             android:id="@+id/grocery_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:text="300 gr"/>
 
@@ -27,9 +29,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/grocery_kcal"
-            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/remove_button"
             android:layout_marginRight="15dp"
             android:text="300 kcal"/>
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/remove_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:backgroundTint="#ffffff"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_cancel_icon"/>
+
 
     </RelativeLayout>
 

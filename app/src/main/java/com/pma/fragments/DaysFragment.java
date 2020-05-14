@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +26,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DaysFragment extends Fragment {
 
@@ -33,8 +36,9 @@ public class DaysFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        daysViewModel =
-                ViewModelProviders.of(this).get(DaysViewModel.class);
+
+        daysViewModel = new ViewModelProvider(this).get(DaysViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_days, container, false);
 
         recyclerView = root.findViewById(R.id.recycler_view);
@@ -42,17 +46,20 @@ public class DaysFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         adapter = new DaysAdapter();
-        adapter.setDays(DataMock.getInstance().getDailySummaries());
-
         recyclerView.setAdapter(adapter);
 
-        //da je live data u observe bi mijenjo listu u adapteru da se osvjezava
+        daysViewModel.getDailySummaries().observe(getViewLifecycleOwner(), new Observer<List<DailySummary>>() {
+            @Override
+            public void onChanged(List<DailySummary> dailySummaries) {
+                adapter.setDays((ArrayList<DailySummary>) dailySummaries);
+            }
+        });
 
         System.out.println(recyclerView.toString());
         return root;
     }
 
-    private class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.DaysHolder>{
+    private class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.DaysHolder> {
 
         private ArrayList<DailySummary> days = new ArrayList<>();
 
@@ -68,20 +75,27 @@ public class DaysFragment extends Fragment {
         public void onBindViewHolder(@NonNull DaysHolder holder, int position) {
             DailySummary day = days.get(position);
 
-            DecimalFormat df = new DecimalFormat("#.##");
+            DecimalFormat df = new DecimalFormat("#");
             df.setRoundingMode(RoundingMode.CEILING);
 
             holder.date.setText(new SimpleDateFormat("dd-MM-yyyy").format(day.getDay()));
-            holder.kcalIn.setText(df.format(day.getKcalIn()) );
-            holder.kcalOut.setText(df.format(day.getKcalOut()) );
 
-            float diff = day.getKcalIn() - day.getKcalOut();
+            float kcalIn = 0;
+            float kcalOut = 0;
 
-            if(diff > 0){
+            if(day.getKcalIn() != null) kcalIn = day.getKcalIn();
+            if(day.getKcalOut() != null) kcalOut = day.getKcalOut();
+
+            holder.kcalIn.setText(df.format(kcalIn));
+            holder.kcalOut.setText(df.format(kcalOut));
+
+            float diff = kcalIn - kcalOut;
+
+            if (diff > 0) {
                 String text = "+" + df.format(diff);
                 holder.kcalDiff.setText(text + " kcal");
                 holder.kcalDiff.setTextColor(Color.parseColor("#169139"));
-            }else{
+            } else {
                 String text = "-" + df.format(diff);
                 holder.kcalDiff.setText(text + " kcal");
                 holder.kcalDiff.setTextColor(Color.parseColor("#d1311f"));
@@ -93,12 +107,12 @@ public class DaysFragment extends Fragment {
             return days.size();
         }
 
-        public void setDays(ArrayList<DailySummary> days){
+        public void setDays(ArrayList<DailySummary> days) {
             this.days = days;
             notifyDataSetChanged();
         }
 
-        class DaysHolder extends  RecyclerView.ViewHolder{
+        class DaysHolder extends RecyclerView.ViewHolder {
 
             TextView date;
             TextView kcalIn;
@@ -115,12 +129,15 @@ public class DaysFragment extends Fragment {
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        DailySummary summary = days.get(getAdapterPosition());
                         Intent intent = new Intent(DaysFragment.this.getContext(), DayPreviewTabsActivity.class);
+                        intent.putExtra("date", summary.getDay().getTime());
                         startActivity(intent);
                     }
                 });
             }
         }
     }
+
 
 }

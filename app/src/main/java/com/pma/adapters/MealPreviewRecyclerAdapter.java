@@ -36,10 +36,8 @@ public class MealPreviewRecyclerAdapter extends RecyclerView.Adapter<MealPreview
         DecimalFormat df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.CEILING);
 
-        holder.mealNo.setText(Integer.toString(position + 1) + ".");
         holder.mealTime.setText(meal.getTimeString());
         holder.mealKcal.setText(df.format(meal.getTotalKcal()) + " kcal");
-        holder.mealType.setText(meal.getType());
 
     }
 
@@ -48,7 +46,7 @@ public class MealPreviewRecyclerAdapter extends RecyclerView.Adapter<MealPreview
         return meals.size();
     }
 
-    public void setActivities(ArrayList<Meal> meals){
+    public void setMeals(ArrayList<Meal> meals){
         this.meals = meals;
         notifyDataSetChanged();
     }
@@ -63,10 +61,8 @@ public class MealPreviewRecyclerAdapter extends RecyclerView.Adapter<MealPreview
 
         public MealHolder(@NonNull View itemView) {
             super(itemView);
-            mealNo = itemView.findViewById(R.id.meal_no);
             mealTime = itemView.findViewById(R.id.meal_time);
             mealKcal = itemView.findViewById(R.id.meal_total_kcal);
-            mealType = itemView.findViewById(R.id.meal_type);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

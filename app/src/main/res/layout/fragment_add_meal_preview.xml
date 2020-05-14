@@ -8,23 +8,17 @@
     tools:context=".fragments.AddMealPreviewFragment"
     android:paddingHorizontal="10dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Groceries"
-        android:textStyle="bold" />
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="#ffffff"
+        android:layout_marginTop="7dp"
         app:cardCornerRadius="2dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/new_meal_grocery_amount_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"/>
+        android:layout_height="wrap_content"/>
 
     </androidx.cardview.widget.CardView>
 
@@ -44,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="200 kcal"
+            android:id="@+id/total_kcal"
             android:textStyle="bold" />
 
     </RelativeLayout>
@@ -65,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="200 gr"
+            android:id="@+id/total_protein"
             android:textStyle="bold" />
 
     </RelativeLayout>
@@ -86,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="300 gr"
+            android:id="@+id/total_carb"
             android:textStyle="bold" />
 
     </RelativeLayout>
@@ -107,18 +101,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="200 gr"
+            android:id="@+id/total_fat"
             android:textStyle="bold" />
 
     </RelativeLayout>
 
     <Button
+        android:id="@+id/finish_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="7dp"
         android:theme="@style/ButtonTheme"
         android:text="Finish" />
-
-
 </LinearLayout>
