@@ -25,7 +25,9 @@ public class DateStringConverter {
 
     @TypeConverter
     public static String fromDate(Date value) {
-      return "";
+      String s;
+      s = sdf.format(value);
+      return s;
     }
 
 }

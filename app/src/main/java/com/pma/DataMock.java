@@ -26,13 +26,15 @@ public class DataMock {
 
 
     private DataMock(){
-        DailySummary ds1 = new DailySummary(new Date(), 2100f, 2330f);
-        DailySummary ds2 = new DailySummary(new Date(), 2200f, 2230f);
-        DailySummary ds3 = new DailySummary(new Date(), 2800f, 2390f);
+        DailySummary ds1 = new DailySummary(new Date(), 2100f, 2330f, 2600f, 2660f, 2880f);
+        DailySummary ds2 = new DailySummary(new Date(), 2200f, 2230f, 2200f, 2750f, 2650f);
+        DailySummary ds3 = new DailySummary(new Date(), 2800f, 2390f, 2450f, 2500f, 2740f);
         dailySummaries = new ArrayList<>();
         dailySummaries.add(ds1);
         dailySummaries.add(ds2);
         dailySummaries.add(ds3);
+        /*dailySummaries.add(ds4);
+        dailySummaries.add(ds5);*/
 
         Activity a1 = new Activity("Running", new Date(), 10, 89);
         Activity a2 = new Activity("Weightlifting", new Date(), 50, 200);
