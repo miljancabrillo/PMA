@@ -124,7 +124,7 @@ public class GraphsFragment extends Fragment {
                 if(!date1.matches("") && !date2.matches(""))
                     graphViewModel.getDataByDay();
                 else if((date1.matches("") && !date2.matches("")) || (!date1.matches("") && date2.matches(""))){
-                    Toast.makeText(getContext(), "Must fill all fields", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "You must fill all fields", Toast.LENGTH_LONG).show();
                 } else {
                     graphViewModel.getData();
                 }
@@ -144,14 +144,16 @@ public class GraphsFragment extends Fragment {
         ArrayList<BarEntry> BarEntry = new ArrayList<>();
 
         if(date1.matches("") || date2.matches("")) {
-            if(category.matches("Calories"))
-                BarEntry.add(new BarEntry(0, dailySummaries.get(0).getKcalIn()));
-            if(category.matches("Carbs"))
-                BarEntry.add(new BarEntry(0, dailySummaries.get(0).getTotalCarb()));
-            if(category.matches("Fats"))
-                BarEntry.add(new BarEntry(0, dailySummaries.get(0).getTotalFat()));
-            if(category.matches("Proteins"))
-                BarEntry.add(new BarEntry(0, dailySummaries.get(0).getTotalProtein()));
+            for(DailySummary d : dailySummaries) {
+                if (category.matches("Calories") && d.getKcalIn() != null)
+                    BarEntry.add(new BarEntry(0, d.getKcalIn()));
+                if (category.matches("Carbs") && d.getTotalCarb() != null)
+                    BarEntry.add(new BarEntry(0, d.getTotalCarb()));
+                if (category.matches("Fats") && d.getTotalFat() != null)
+                    BarEntry.add(new BarEntry(0, d.getTotalFat()));
+                if (category.matches("Proteins") && d.getTotalProtein() != null)
+                    BarEntry.add(new BarEntry(0, d.getTotalProtein()));
+            }
         } else {
             for(DailySummary d : dailySummaries){
                 if(category.matches("Calories"))

@@ -68,7 +68,9 @@ public class GraphsViewModel extends AndroidViewModel {
         @Override
         protected Void doInBackground(Void... voids) {
             List<DailySummary> summaries = mealDao.getDailySummary(date);
-            daily.postValue(summaries);
+            if(summaries != null) {
+                daily.postValue(summaries);
+            }
             return null;
         }
     }

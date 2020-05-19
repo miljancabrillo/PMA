@@ -15,7 +15,9 @@ public class DateStringConverter {
         Date date = new Date();
 
         try {
-            date = sdf.parse(value);
+            if(value != null) {
+                date = sdf.parse(value);
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
