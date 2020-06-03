@@ -1,67 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginHorizontal="10dp"
-    android:orientation="vertical"
-    tools:context=".fragments.GraphsFragment">
+    android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/date_input"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:background="@drawable/border"
-        android:hint="Select date from"
-        android:inputType="none"
-        android:padding="10dp" />
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="10dp"
+        android:orientation="vertical"
+        tools:context=".fragments.GraphsFragment">
 
-    <EditText
-        android:id="@+id/date_input1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:background="@drawable/border"
-        android:hint="Select date to"
-        android:inputType="none"
-        android:padding="10dp" />
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        app:cardBackgroundColor="#ffffff"
-        app:cardCornerRadius="2dp">
-
-        <Spinner
-            android:id="@+id/spinner1"
+        <EditText
+            android:id="@+id/date_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:foregroundTintMode="multiply"
-            android:spinnerMode="dropdown"
-            android:theme="@style/ThemeOverlay.AppCompat.Light" />
+            android:layout_marginTop="7dp"
+            android:background="@drawable/border"
+            android:hint="Select date from"
+            android:inputType="none"
+            android:padding="10dp" />
 
-    </androidx.cardview.widget.CardView>
+        <EditText
+            android:id="@+id/date_input1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/border"
+            android:hint="Select date to"
+            android:inputType="none"
+            android:padding="10dp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            app:cardBackgroundColor="#ffffff"
+            app:cardCornerRadius="2dp">
+
+            <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foregroundTintMode="multiply"
+                android:spinnerMode="dropdown"
+                android:theme="@style/ThemeOverlay.AppCompat.Light" />
+
+        </androidx.cardview.widget.CardView>
 
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/bar_chart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="7dp"
-        android:minHeight="200dp" />
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/bar_chart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="7dp"
+            android:minHeight="200dp" />
 
-    <Button
-        android:id="@+id/graph_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingHorizontal="20dp"
-        android:text="Show"
-        android:theme="@style/ButtonTheme" />
+        <Button
+            android:id="@+id/graph_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingHorizontal="20dp"
+            android:text="Show"
+            android:theme="@style/ButtonTheme" />
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</ScrollView>

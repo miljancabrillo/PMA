@@ -9,10 +9,6 @@
             android:icon="@drawable/ic_date"
             android:title="Days" />
         <item
-            android:id="@+id/nav_groceries"
-            android:icon="@drawable/ic_groceries"
-            android:title="Groceries" />
-        <item
             android:id="@+id/nav_graph"
             android:icon="@drawable/ic_bar_graph"
             android:title="Graphs" />
