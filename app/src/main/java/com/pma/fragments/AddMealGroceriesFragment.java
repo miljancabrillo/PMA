@@ -1,6 +1,7 @@
 package com.pma.fragments;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -32,6 +34,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.pma.R;
 import com.pma.adapters.GroceryRecyclerAdapter;
 import com.pma.model.Grocery;
@@ -106,8 +109,11 @@ public class AddMealGroceriesFragment extends Fragment implements GroceryRecycle
                 .alwaysCallInputCallback()
                 .build();
         //TU SE MOZE MODIFIKOVATI
-        dialog.getActionButton(DialogAction.POSITIVE).setTextSize(16);
+        dialog.getActionButton(DialogAction.POSITIVE).setTextSize(20);
+        dialog.getInputEditText().setTextSize(18);
+        dialog.getInputEditText().setPadding(25,25,25,25);
         dialog.show();
+
     }
 
     @Override

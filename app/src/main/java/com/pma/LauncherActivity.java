@@ -13,22 +13,27 @@ import com.pma.activities.MainActivity;
 
 public class LauncherActivity extends AppCompatActivity {
 
+    SharedPreferences loginPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences preferences = getSharedPreferences("com.pma.LOGIN_PREFERENCES", Context.MODE_PRIVATE);
+        loginPreferences = getSharedPreferences("com.pma.LOGIN_PREFERENCES", Context.MODE_PRIVATE);
+        String userId = loginPreferences.getString("userId", "");
 
-        String userId = preferences.getString("userId", "");
-
-        if(userId.equals("")){
+        if (userId.equals("")) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
-        }else{
+        } else {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
         }
     }
+
+
+
+
 }

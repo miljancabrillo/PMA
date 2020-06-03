@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.pma">
 
     <application
@@ -11,15 +12,14 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.AddActivityActivity"
-            android:theme="@style/AppTheme.NoActionBar"
             android:label="Add activity"
-            android:parentActivityName=".activities.MainActivity"/>
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.AddMealTabsActivity"
             android:label="Add meal"
             android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activities.MealDetailsActivity"
             android:label="Meal details"
@@ -44,15 +44,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.AddGroceryActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+        <activity
+            android:name=".activities.AddGroceryActivity"
             android:label="Add grocery"
-            android:parentActivityName=".activities.MainActivity" />
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
+        <receiver
+            android:name=".receivers.ActivityDetectionReceiver"
+            android:permission="android.permission.ACTIVITY_RECOGNITION">
+            <intent-filter>
+                <action android:name="ACTIVITY_RECOGNITION_ACTION" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".receivers.LocationUpdatesReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.location.sample.locationupdatespendingintent.LocationUpdatesBroadcastReceiver.ACTION_PROCESS_UPDATES" />
+            </intent-filter>
+        </receiver>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB_tObnN8gbKvHIUrhrz679nhP19DUqZ0o" />
     </application>
 
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_REC‌​OGNITION"/>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 </manifest>

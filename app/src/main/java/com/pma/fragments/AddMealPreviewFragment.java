@@ -54,7 +54,7 @@ public class AddMealPreviewFragment extends Fragment implements GroceryAmountRec
         groceryAmountRecycler.addItemDecoration(dividerItemDecoration);
 
         //kreiranje adaptera i ubacivanje podataka u adpter
-        final GroceryAmountRecyclerAdapter adapter = new GroceryAmountRecyclerAdapter();
+        final GroceryAmountRecyclerAdapter adapter = new GroceryAmountRecyclerAdapter(true);
         adapter.setListener(this);
         groceryAmountRecycler.setAdapter(adapter);
 

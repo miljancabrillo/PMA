@@ -3,7 +3,10 @@ package com.pma.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +24,12 @@ public class GroceryAmountRecyclerAdapter extends RecyclerView.Adapter<GroceryAm
 
     private ArrayList<GroceryAndAmountPair> pairs = new ArrayList<>();
     private GroceryAmountPairListener listener;
+    private boolean showDeleteBtn;
+
+    public GroceryAmountRecyclerAdapter(boolean showDeleteBtn){
+        this.showDeleteBtn = showDeleteBtn;
+    }
+
 
     @NonNull
     @Override
@@ -40,6 +49,13 @@ public class GroceryAmountRecyclerAdapter extends RecyclerView.Adapter<GroceryAm
         holder.groceryName.setText(pair.getGrocery().getName());
         holder.groceryAmount.setText(Float.toString(pair.getAmount()) + " gr");
         holder.groceryKcal.setText(df.format(pair.getKcals()) + " kcal");
+
+        if(!showDeleteBtn){
+            ((ViewManager)holder.removeButton.getParent()).removeView(holder.removeButton);
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.groceryKcal.getLayoutParams();
+            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            holder.groceryKcal.setLayoutParams(params);
+        }
 
     }
 

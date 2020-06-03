@@ -68,7 +68,7 @@ public class MealPreviewRecyclerAdapter extends RecyclerView.Adapter<MealPreview
                 @Override
                 public void onClick(View v) {
                     if (listener != null){
-                        listener.onClick(1);
+                        listener.onClick(meals.get(getAdapterPosition()).getId());
                     }
                 }
             });

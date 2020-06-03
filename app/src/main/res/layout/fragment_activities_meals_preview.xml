@@ -164,7 +164,7 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="4dp"
                     android:paddingTop="4dp"
-                    android:text="Meals"
+                    android:text="Activities"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -208,7 +208,7 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="4dp"
                     android:paddingTop="4dp"
-                    android:text="Activities"
+                    android:text="Meals"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

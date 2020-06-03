@@ -31,6 +31,10 @@ public interface MealDao {
     @Query("SELECT * FROM meal WHERE meal.id = :id")
     MealPairRelation getMealWithPairs(int id);
 
+
+    @Query("SELECT * FROM meal WHERE meal.id = :id")
+    Meal getMeal(int id);
+
     @TypeConverters({DateStringConverter.class})
     @Query("SELECT strftime('%d-%m-%Y', dateAndTime/1000,'unixepoch') as day, SUM(totalKcal) as kcalIn FROM meal GROUP BY strftime('%d-%m-%Y', dateAndTime/1000,'unixepoch')")
     List<DailySummary> getDailySummariesKcalIn();

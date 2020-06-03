@@ -97,10 +97,10 @@ public class ActivitiesMealsPreviewFragment extends Fragment implements MealPrev
                     totalKcals += meal.getTotalKcal();
                 }
                 DecimalFormat df = new DecimalFormat("#.##");
-                totalKcal.setText(df.format(totalKcals) + " gr");
+                totalKcal.setText(df.format(totalKcals) + " kcal");
                 totalProtein.setText(df.format(protein) + " gr");
                 totalFat.setText(df.format(fats) + " gr");
-                totalCarb.setText(df.format(carbs) + " kcal");
+                totalCarb.setText(df.format(carbs) + " gr");
 
                 addChartData(pieChart, protein, carbs, fats);
             }
@@ -114,6 +114,7 @@ public class ActivitiesMealsPreviewFragment extends Fragment implements MealPrev
     @Override
     public void onClick(int mealId) {
         Intent intent = new Intent(getActivity(), MealDetailsActivity.class);
+        intent.putExtra("mealId", mealId);
         startActivity(intent);
     }
 

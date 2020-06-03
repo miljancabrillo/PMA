@@ -34,10 +34,11 @@ public class DataMock {
         dailySummaries.add(ds2);
         dailySummaries.add(ds3);
 
-        Activity a1 = new Activity("Running", new Date(), 10, 89);
-        Activity a2 = new Activity("Weightlifting", new Date(), 50, 200);
-        Activity a3 = new Activity("Swimming", new Date(), 30, 250);
-        Activity a4 = new Activity("Bowling", new Date(), 30, 50);
+        Activity a1 = new Activity(1,"Running","", new Date(),new Date(), new Date(), false, 0, 89, null);
+        Activity a2 = new Activity(1,"Weightlifting","", new Date(),new Date(), new Date(), false,10, 89, null);
+        Activity a3 = new Activity(1,"Swimming","", new Date(),new Date(), new Date(), false,10, 89, null);
+        Activity a4 = new Activity(1,"Bowling","", new Date(),new Date(), new Date(), false ,10, 89, null);
+
         activities = new ArrayList<>();
         activities.add(a1);
         activities.add(a2);
@@ -72,17 +73,6 @@ public class DataMock {
         meals.add(m3);
 
         activityTypes = new ArrayList<>();
-        ActivityType at1 = new ActivityType("Running");
-        ActivityType at2 = new ActivityType("Swimming");
-        ActivityType at3 = new ActivityType("Bowling");
-        ActivityType at4 = new ActivityType("Cycling");
-        ActivityType at5 = new ActivityType("Weightlifting");
-
-        activityTypes.add(at1);
-        activityTypes.add(at2);
-        activityTypes.add(at3);
-        activityTypes.add(at4);
-        activityTypes.add(at5);
 
     }
 

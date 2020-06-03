@@ -3,6 +3,7 @@ package com.pma.activities;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -12,16 +13,26 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.pma.DataMock;
 import com.pma.R;
 import com.pma.adapters.GroceryAmountRecyclerAdapter;
+import com.pma.model.GroceryAndAmountPair;
+import com.pma.model.Meal;
+import com.pma.view_model.MealDetailsViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MealDetailsActivity extends AppCompatActivity {
+
+    private MealDetailsViewModel viewModel;
+    private int mealId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,22 +43,46 @@ public class MealDetailsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        PieChart pieChart = findViewById(R.id.pie_chart);
-        addChartData(pieChart);
+        mealId = getIntent().getIntExtra("mealId", -1);
+        viewModel = new ViewModelProvider(this).get(MealDetailsViewModel.class);
+
+        viewModel.setMealId(mealId);
+
+        final PieChart pieChart = findViewById(R.id.pie_chart);
+
 
         RecyclerView groceryAmountRecycler = findViewById(R.id.grocery_amount_recycler_view);
         groceryAmountRecycler.setLayoutManager(new LinearLayoutManager(this));
         groceryAmountRecycler.setHasFixedSize(true);
 
-        GroceryAmountRecyclerAdapter adapter = new GroceryAmountRecyclerAdapter();
-        adapter.setPairs(DataMock.getInstance().getMeals().get(0).getGroceryAndAmountPairs());
+        final GroceryAmountRecyclerAdapter adapter = new GroceryAmountRecyclerAdapter(false);
         groceryAmountRecycler.setAdapter(adapter);
+
+        viewModel.getPairs().observe(this, new Observer<List<GroceryAndAmountPair>>() {
+            @Override
+            public void onChanged(List<GroceryAndAmountPair> pairs) {
+                adapter.setPairs((ArrayList<GroceryAndAmountPair>) pairs);
+            }
+        });
+
+        viewModel.getMeal().observe(this, new Observer<Meal>() {
+            @Override
+            public void onChanged(Meal meal) {
+                DecimalFormat df = new DecimalFormat("#.##");
+                ((TextView) findViewById(R.id.total_proteins)).setText(df.format(meal.getTotalProtein()) + " gr");
+                ((TextView) findViewById(R.id.total_carbs)).setText(df.format(meal.getTotalCarb()) + " gr");
+                ((TextView) findViewById(R.id.total_fats)).setText(df.format(meal.getTotalFat()) + " gr");
+                ((TextView) findViewById(R.id.total_kcals)).setText(df.format(meal.getTotalKcal()) + " kcal");
+
+                addChartData(pieChart, meal.getTotalProtein(), meal.getTotalCarb(), meal.getTotalFat());
+            }
+        });
 
     }
 
-    private void addChartData(PieChart pieChart){
+    private void addChartData(PieChart pieChart, float proteins, float carbs, float fats) {
 
-        pieChart.setEntryLabelColor(Color.parseColor("#000000"));
+        pieChart.setDrawEntryLabels(false);
         pieChart.getLegend().setEnabled(false);
         pieChart.setDescription(new Description());
         pieChart.setHoleRadius(10f);
@@ -56,9 +91,9 @@ public class MealDetailsActivity extends AppCompatActivity {
 
         ArrayList<PieEntry> yValues = new ArrayList<>();
 
-        yValues.add(new PieEntry(132, "proteins"));
-        yValues.add(new PieEntry(234, "fats"));
-        yValues.add(new PieEntry(132, "carbs"));
+        yValues.add(new PieEntry(proteins, "proteins"));
+        yValues.add(new PieEntry(fats, "fats"));
+        yValues.add(new PieEntry(carbs, "carbs"));
 
         //create the data set
         PieDataSet pieDataSet = new PieDataSet(yValues, "");
@@ -74,6 +109,7 @@ public class MealDetailsActivity extends AppCompatActivity {
 
         //create pie data object
         PieData pieData = new PieData(pieDataSet);
+        pieData.setDrawValues(false);
         pieChart.setData(pieData);
         pieChart.invalidate();
 

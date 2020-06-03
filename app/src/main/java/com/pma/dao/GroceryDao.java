@@ -26,6 +26,9 @@ public interface GroceryDao {
     @Query("SELECT * FROM grocery")
     List<Grocery> getAll();
 
+    @Query("SELECT * FROM grocery WHERE id = :id")
+    Grocery getGrocery(int id);
+
     @Query("SELECT * FROM Grocery where name like :searchString;")
     List<Grocery> searchByName(String searchString);
 }

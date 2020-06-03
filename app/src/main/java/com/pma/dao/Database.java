@@ -9,13 +9,17 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.pma.model.Activity;
+import com.pma.model.ActivityType;
 import com.pma.model.Grocery;
 import com.pma.model.GroceryAndAmountPair;
+import com.pma.model.Location;
 import com.pma.model.Meal;
 import com.pma.model.User;
 
 
-@androidx.room.Database(entities = {User.class, Grocery.class, GroceryAndAmountPair.class, Meal.class}, version = 2)
+@androidx.room.Database(entities = {User.class, Grocery.class,
+        GroceryAndAmountPair.class, Meal.class, Activity.class, Location.class, ActivityType.class}, version = 5)
 @TypeConverters({DateIntConverter.class})
 public abstract class Database extends RoomDatabase {
 
@@ -28,6 +32,12 @@ public abstract class Database extends RoomDatabase {
     public abstract  GroceryAndAmountPairDao pairDao();
 
     public  abstract  MealDao mealDao();
+
+    public abstract  ActivityDao activityDao();
+
+    public  abstract  LocationDao locationDao();
+
+    public abstract  ActivityTypeDao activityTypeDao();
 
     public static synchronized Database getInstance(Context context){
         if(instance == null){
