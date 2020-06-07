@@ -18,7 +18,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,7 +52,6 @@ import java.util.List;
 public class AddMealGroceriesFragment extends Fragment implements GroceryRecyclerAdapter.GroceryClickListener {
 
     AddMealViewModel viewModel;
-    Grocery selectedGrocery;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,10 +63,6 @@ public class AddMealGroceriesFragment extends Fragment implements GroceryRecycle
         RecyclerView recyclerView = root.findViewById(R.id.grocery_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
-
-        //dodavanje dividera
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                ((LinearLayoutManager) recyclerView.getLayoutManager()).getOrientation());
 
         final GroceryRecyclerAdapter adapter = new GroceryRecyclerAdapter();
         adapter.setListener(this);
@@ -85,34 +82,51 @@ public class AddMealGroceriesFragment extends Fragment implements GroceryRecycle
     }
 
     @Override
-    public void onGroceryClicked(Grocery grocery) {
-        selectedGrocery = grocery;
-        MaterialDialog dialog = new MaterialDialog.Builder(getContext())
-                .title("Add grocery")
-                .inputType(InputType.TYPE_CLASS_NUMBER)
-                .input("Amount in grams", "", new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(MaterialDialog dialog, CharSequence input) {
-                        if (input.toString().equals("")) {
-                            dialog.getActionButton(DialogAction.POSITIVE).setEnabled(false);
-                        }else{
-                            dialog.getActionButton(DialogAction.POSITIVE).setEnabled(true);
-                        }
-                    }
-                }).onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                       float amount = Float.parseFloat(dialog.getInputEditText().getText().toString());
-                       viewModel.addGroceryAmountPair(new GroceryAndAmountPair(selectedGrocery,amount));
-                    }
-                 })
-                .alwaysCallInputCallback()
-                .build();
-        //TU SE MOZE MODIFIKOVATI
-        dialog.getActionButton(DialogAction.POSITIVE).setTextSize(20);
-        dialog.getInputEditText().setTextSize(18);
-        dialog.getInputEditText().setPadding(25,25,25,25);
+    public void onGroceryClicked(final Grocery grocery) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        builder.setView(R.layout.dialog_title_and_edit_text);
+        builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+
+                EditText amountEditText = ((AlertDialog)dialog).findViewById(R.id.custom_dialog_input_text);
+                float amount = Float.parseFloat(amountEditText.getText().toString());
+                viewModel.addGroceryAmountPair(new GroceryAndAmountPair(grocery,amount));
+                dialog.dismiss();
+
+            }
+        });
+
+        final AlertDialog dialog = builder.create();
         dialog.show();
+
+        ((TextView)dialog.findViewById(R.id.custom_dialog_title)).setText("Add grocery");
+        ((TextView)dialog.findViewById(R.id.custom_dialog_input_text)).setHint("Amount");
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+        ((EditText)dialog.findViewById(R.id.custom_dialog_input_text)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(s.toString().equals("") || s == null){
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }else{
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
     }
 

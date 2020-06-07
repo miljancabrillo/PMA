@@ -1,13 +1,9 @@
 package com.pma.fragments;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,23 +11,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import android.transition.AutoTransition;
-import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.pma.DataMock;
+import com.pma.model.Activity;
+import com.pma.utils.DataMock;
 import com.pma.R;
-import com.pma.activities.DayPreviewTabsActivity;
 import com.pma.activities.MealDetailsActivity;
 import com.pma.adapters.ActivityPreviewRecyclerAdapter;
 import com.pma.adapters.MealPreviewRecyclerAdapter;
@@ -40,7 +32,6 @@ import com.pma.view_model.DayPreviewViewModel;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ActivitiesMealsPreviewFragment extends Fragment implements MealPreviewRecyclerAdapter.MealClickListener {
@@ -50,6 +41,8 @@ public class ActivitiesMealsPreviewFragment extends Fragment implements MealPrev
     private TextView totalProtein;
     private TextView totalCarb;
     private TextView totalFat;
+    private TextView totalSpent;
+    private DecimalFormat df;
 
 
     @Override
@@ -63,17 +56,28 @@ public class ActivitiesMealsPreviewFragment extends Fragment implements MealPrev
         totalProtein = rootView.findViewById(R.id.total_proteins);
         totalCarb = rootView.findViewById(R.id.total_carbs);
         totalFat = rootView.findViewById(R.id.total_fats);
-
-
+        totalSpent = rootView.findViewById(R.id.total_kcals_spent);
+        df = new DecimalFormat("#.##");
 
         //ubacivanje podataka za recyclev view aktivnosti
         final RecyclerView activitiesRecycler = rootView.findViewById(R.id.activities_recycler_view);
         activitiesRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         activitiesRecycler.setHasFixedSize(true);
 
-        ActivityPreviewRecyclerAdapter activitiesAdapter = new ActivityPreviewRecyclerAdapter();
-        activitiesAdapter.setActivities(DataMock.getInstance().getActivities());
+        final ActivityPreviewRecyclerAdapter activitiesAdapter = new ActivityPreviewRecyclerAdapter();
         activitiesRecycler.setAdapter(activitiesAdapter);
+
+        viewModel.getActivities().observe(getViewLifecycleOwner(), new Observer<List<Activity>>() {
+            @Override
+            public void onChanged(List<Activity> activities) {
+                activitiesAdapter.setActivities((ArrayList<Activity>) activities);
+                float kcalsSpent = 0;
+                for(Activity act : activities){
+                    kcalsSpent += act.getKcalBurned();
+                }
+                totalSpent.setText(df.format(kcalsSpent) + " kcal");
+            }
+        });
 
         //recycler za obroke
         RecyclerView mealsRecycler = rootView.findViewById(R.id.meals_recycler_view);
@@ -96,7 +100,6 @@ public class ActivitiesMealsPreviewFragment extends Fragment implements MealPrev
                     fats += meal.getTotalFat();
                     totalKcals += meal.getTotalKcal();
                 }
-                DecimalFormat df = new DecimalFormat("#.##");
                 totalKcal.setText(df.format(totalKcals) + " kcal");
                 totalProtein.setText(df.format(protein) + " gr");
                 totalFat.setText(df.format(fats) + " gr");
@@ -130,8 +133,8 @@ public class ActivitiesMealsPreviewFragment extends Fragment implements MealPrev
 
         ArrayList<PieEntry> yValues = new ArrayList<>();
         yValues.add(new PieEntry(protein, "proteins"));
-        yValues.add(new PieEntry(carbs, "fats"));
-        yValues.add(new PieEntry(fats, "carbs"));
+        yValues.add(new PieEntry(fats, "fats"));
+        yValues.add(new PieEntry(carbs, "carbs"));
 
         //create the data set
         PieDataSet pieDataSet = new PieDataSet(yValues, "");

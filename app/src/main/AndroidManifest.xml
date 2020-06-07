@@ -61,7 +61,7 @@
         <receiver android:name=".receivers.LocationUpdatesReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.google.android.gms.location.sample.locationupdatespendingintent.LocationUpdatesBroadcastReceiver.ACTION_PROCESS_UPDATES" />
+                <action android:name="LOCATION_UPDATES_ACTION" />
             </intent-filter>
         </receiver>
 

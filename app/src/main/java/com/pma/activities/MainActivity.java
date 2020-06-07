@@ -37,9 +37,13 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.work.Constraints;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -183,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
                 new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void result) {
-                        //Toast.makeText(MainActivity.this, "Registering successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Registering successful", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
@@ -192,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                 new OnFailureListener() {
                     @Override
                     public void onFailure(Exception e) {
-                        //Toast.makeText(MainActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
         );
@@ -209,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
         mLocationRequest.setMaxWaitTime(MAX_WAIT_TIME);
 
         Intent intent = new Intent(this, LocationUpdatesReceiver.class);
-        intent.setAction(LocationUpdatesReceiver.ACTION_PROCESS_UPDATES);
+        intent.setAction("LOCATION_UPDATES_ACTION");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         mFusedLocationClient.requestLocationUpdates(mLocationRequest, pendingIntent);

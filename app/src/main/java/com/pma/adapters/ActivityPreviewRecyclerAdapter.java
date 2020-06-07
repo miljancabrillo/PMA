@@ -35,7 +35,8 @@ public class ActivityPreviewRecyclerAdapter extends Adapter <ActivityPreviewRecy
         df.setRoundingMode(RoundingMode.CEILING);
 
         holder.activityName.setText(activity.getName());
-        holder.activityDuration.setText(df.format(activity.getDuration()) + " min");
+        if(!activity.getName().equals("Bazalni metabolizam")) holder.activityDuration.setText(df.format(activity.getDuration()) + " min");
+        else holder.activityDuration.setText("24 h");
         holder.activityKcalBurend.setText(df.format(activity.getKcalBurned()) + " kcal");
     }
 

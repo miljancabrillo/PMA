@@ -12,11 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.pma.DataMock;
 import com.pma.R;
 import com.pma.activities.DayPreviewTabsActivity;
 import com.pma.model.DailySummary;
@@ -57,6 +55,12 @@ public class DaysFragment extends Fragment {
 
         System.out.println(recyclerView.toString());
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        daysViewModel.refreshSummaries();
     }
 
     private class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.DaysHolder> {

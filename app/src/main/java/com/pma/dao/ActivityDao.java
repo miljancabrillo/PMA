@@ -4,9 +4,11 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.TypeConverters;
 import androidx.room.Update;
 
 import com.pma.model.Activity;
+import com.pma.model.DailySummary;
 
 import java.util.Date;
 import java.util.List;
@@ -29,7 +31,17 @@ public interface ActivityDao {
     @Query("SELECT * FROM activity WHERE name = 'Walking' AND finished = 0")
     Activity getStartedWalkingActivity();
 
-    @Query("SELECT * FROM activity WHERE name = 'Walking' and finished = 1 and strftime('%d-%m-%Y', date/1000,'unixepoch') = :day")
-    List<Activity> getFinishedWalkingActivitiesByDay(String day);
+    @Query("SELECT * FROM activity WHERE name = 'Walking' and finished = 1 and date(date) = date(:date)")
+    List<Activity> getFinishedWalkingActivitiesByDay(Date date);
+
+    @Query("SELECT date(date) as day, SUM(kcalBurned) as kcalOut FROM activity WHERE finished = 1 GROUP BY date(date)")
+    List<DailySummary> getDailySummariesKcalOut();
+
+    @Query("SELECT * FROM activity WHERE name = 'Bazalni metabolizam' and date(date) = date(:date)")
+    Activity getBMRActivity(Date date);
+
+    @Query("SELECT * FROM activity WHERE date(date) = date(:date)")
+    List<Activity> getActivitiesByDate(Date date);
+
 
 }

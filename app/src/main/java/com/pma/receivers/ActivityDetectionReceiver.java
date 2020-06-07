@@ -10,20 +10,27 @@ import com.google.android.gms.location.ActivityTransition;
 import com.google.android.gms.location.ActivityTransitionEvent;
 import com.google.android.gms.location.ActivityTransitionResult;
 import com.google.android.gms.location.DetectedActivity;
+import com.pma.utils.Utils;
 import com.pma.dao.ActivityDao;
 import com.pma.dao.Database;
+import com.pma.dao.UserDao;
 import com.pma.model.Activity;
+import com.pma.model.User;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class ActivityDetectionReceiver extends BroadcastReceiver {
 
     private ActivityDao activityDao;
-
+    private UserDao userDao;
+    private  Context context;
     @Override
     public void onReceive(Context context, Intent intent) {
 
         activityDao = Database.getInstance(context).activityDao();
+        userDao = Database.getInstance(context).userDao();
+        this.context = context;
 
         if (ActivityTransitionResult.hasResult(intent)) {
             ActivityTransitionResult result = ActivityTransitionResult.extractResult(intent);
@@ -31,10 +38,12 @@ public class ActivityDetectionReceiver extends BroadcastReceiver {
                 if(event.getActivityType() == DetectedActivity.WALKING &&
                         event.getTransitionType() == ActivityTransition.ACTIVITY_TRANSITION_ENTER){
 
+
+                    String userId = Utils.getCurrentUsername(context);
+                    if(userId.equals("")) return;
+
                     Activity activity = new Activity();
-
                     NotificationUtils.sendNotification(context, "Walking started!");
-
 
                     long elapsedSeconds = (SystemClock.elapsedRealtimeNanos() - event.getElapsedRealTimeNanos())/1000000000;
                     activity.setDate(new Date());
@@ -45,7 +54,7 @@ public class ActivityDetectionReceiver extends BroadcastReceiver {
 
                     activity.setName("Walking");
 
-                    NotificationUtils.sendNotification(context, "Walking started!" + Long.toString(elapsedSeconds));
+                    //NotificationUtils.sendNotification(context, "Walking started!" + Long.toString(elapsedSeconds));
 
                     StartActivityTask task = new StartActivityTask();
                     task.execute(activity);
@@ -85,8 +94,22 @@ public class ActivityDetectionReceiver extends BroadcastReceiver {
         protected Void doInBackground(Date... dates) {
             Activity activity = activityDao.getStartedWalkingActivity();
             if(activity == null) return null;
+
+            String userId = Utils.getCurrentUsername(context);
+
             activity.setFinished(true);
             activity.setEndTime(dates[0]);
+            activity.setName("Šetnja (automatski zabilježena)");
+            activity.setUserId(userId);
+
+            long diffInMillies = Math.abs(activity.getEndTime().getTime() - activity.getStartTime().getTime());
+            long diff = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
+            float duration = diff;
+            activity.setDuration(duration);
+
+            User user = userDao.findUserByEmail(userId);
+            activity.setKcalBurned((2.8f * 3.5f *user.getWeight()/200)*duration);
+
             activityDao.update(activity);
             return null;
         }

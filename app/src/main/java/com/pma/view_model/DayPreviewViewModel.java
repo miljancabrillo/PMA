@@ -27,6 +27,7 @@ public class DayPreviewViewModel extends AndroidViewModel {
     private Date day;
     private MutableLiveData<List<Meal>> meals;
     private MutableLiveData<List<Activity>> walkingActivities;
+    private MutableLiveData<List<Activity>> activities;
 
     public DayPreviewViewModel(@NonNull Application application) {
         super(application);
@@ -58,12 +59,20 @@ public class DayPreviewViewModel extends AndroidViewModel {
         return walkingActivities;
     }
 
+    public MutableLiveData<List<Activity>> getActivities(){
+        if(activities == null){
+            activities = new MutableLiveData<>();
+            GetActivities task = new GetActivities();
+            task.execute();
+        }
+        return activities;
+    }
+
     private class GetMealsTask extends AsyncTask<Void, Void, Void>{
 
         @Override
         protected Void doInBackground(Void... voids) {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            List<Meal> mealList = mealDao.getMealsByDay(sdf.format(day));
+            List<Meal> mealList = mealDao.getMealsByDay(day);
             meals.postValue(mealList);
             return null;
         }
@@ -74,14 +83,23 @@ public class DayPreviewViewModel extends AndroidViewModel {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            List<Activity> activities = activityDao.getFinishedWalkingActivitiesByDay(sdf.format(day));
+            List<Activity> activities = activityDao.getFinishedWalkingActivitiesByDay(day);
             if(activities != null){
                 for (Activity activity: activities) {
                     activity.setLocations(locationDao.getLocationsInTimeRange(activity.getStartTime(),activity.getEndTime()));
                 }
             }
             walkingActivities.postValue(activities);
+            return null;
+        }
+    }
+
+    private class GetActivities extends AsyncTask<Void, Void, Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            List<Activity> activitiesList = activityDao.getActivitiesByDate(day);
+            activities.postValue(activitiesList);
             return null;
         }
     }

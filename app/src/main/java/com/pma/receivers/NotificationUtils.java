@@ -48,7 +48,7 @@ public class NotificationUtils {
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
                         R.mipmap.ic_launcher))
                 .setColor(Color.RED)
-                .setContentTitle("Location update")
+                .setContentTitle("UPDATE")
                 .setContentText(message)
                 .setContentIntent(notificationPendingIntent);
 

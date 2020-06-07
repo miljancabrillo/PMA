@@ -19,8 +19,8 @@ import com.pma.model.User;
 
 
 @androidx.room.Database(entities = {User.class, Grocery.class,
-        GroceryAndAmountPair.class, Meal.class, Activity.class, Location.class, ActivityType.class}, version = 5)
-@TypeConverters({DateIntConverter.class})
+        GroceryAndAmountPair.class, Meal.class, Activity.class, Location.class, ActivityType.class}, version = 7)
+@TypeConverters({DateStringConverter.class})
 public abstract class Database extends RoomDatabase {
 
     private static Database instance;

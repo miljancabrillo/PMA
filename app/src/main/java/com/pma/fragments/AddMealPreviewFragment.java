@@ -18,14 +18,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pma.DataMock;
 import com.pma.R;
 import com.pma.adapters.GroceryAmountRecyclerAdapter;
 import com.pma.model.GroceryAndAmountPair;
 import com.pma.model.Meal;
 import com.pma.view_model.AddMealViewModel;
-
-import org.w3c.dom.Text;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;

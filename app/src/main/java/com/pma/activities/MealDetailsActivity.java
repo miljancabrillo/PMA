@@ -10,7 +10,6 @@ import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.pma.DataMock;
 import com.pma.R;
 import com.pma.adapters.GroceryAmountRecyclerAdapter;
 import com.pma.model.GroceryAndAmountPair;

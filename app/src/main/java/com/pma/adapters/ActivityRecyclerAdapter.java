@@ -20,8 +20,6 @@ public class ActivityRecyclerAdapter extends RecyclerView.Adapter<ActivityRecycl
     private ArrayList<ActivityType> activities = new ArrayList<>();
     private ActivityRecyclerAdapter.ActivityClickListener listener;
 
-    private int selectedItem = -1;
-
     @NonNull
     @Override
     public ActivityHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,21 +35,9 @@ public class ActivityRecyclerAdapter extends RecyclerView.Adapter<ActivityRecycl
         holder.activityName.setText(activity.getName());
         holder.itemView.setTag(activities.get(position));
 
-        holder.itemView.setBackgroundColor(Color.WHITE);
-
-        if (selectedItem == position) {
-            holder.itemView.setBackgroundColor(Color.parseColor("#dee1e3"));
-        }
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                int previousItem = selectedItem;
-                selectedItem = position;
-                notifyItemChanged(previousItem);
-                notifyItemChanged(position);
-
                 if (listener != null) {
                     listener.onActivityClicked(activities.get(holder.getAdapterPosition()));
                 }

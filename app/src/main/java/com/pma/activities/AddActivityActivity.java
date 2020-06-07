@@ -1,5 +1,6 @@
 package com.pma.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -9,13 +10,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.pma.DataMock;
 import com.pma.R;
 import com.pma.adapters.ActivityRecyclerAdapter;
 import com.pma.model.ActivityType;
@@ -24,7 +29,7 @@ import com.pma.view_model.AddActivityViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddActivityActivity extends AppCompatActivity {
+public class AddActivityActivity extends AppCompatActivity implements ActivityRecyclerAdapter.ActivityClickListener{
 
     private AddActivityViewModel viewModel;
 
@@ -48,6 +53,7 @@ public class AddActivityActivity extends AppCompatActivity {
 
         final ActivityRecyclerAdapter adapter = new ActivityRecyclerAdapter();
         activitiesRecycler.setAdapter(adapter);
+        adapter.setListener(this);
 
         viewModel.getActivityTypes().observe(this, new Observer<List<ActivityType>>() {
             @Override
@@ -87,5 +93,51 @@ public class AddActivityActivity extends AppCompatActivity {
         });
 
         return true;
+    }
+
+    @Override
+    public void onActivityClicked(final ActivityType activityType) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setView(R.layout.dialog_title_and_edit_text);
+        builder.setPositiveButton("Add activity", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+
+                EditText durationEditText = ((AlertDialog)dialog).findViewById(R.id.custom_dialog_input_text);
+                viewModel.addActivity(activityType, Float.parseFloat(durationEditText.getText().toString()));
+                dialog.dismiss();
+            }
+        });
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        ((TextView)dialog.findViewById(R.id.custom_dialog_title)).setText(activityType.getName());
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+        ((EditText)dialog.findViewById(R.id.custom_dialog_input_text)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(s.toString().equals("") || s == null){
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }else{
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
 }

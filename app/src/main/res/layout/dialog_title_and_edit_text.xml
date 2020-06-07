@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/Theme.MaterialComponents.Dialog"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:textColor="#ffffff"
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="5dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:id="@+id/custom_dialog_title"
+        android:text="Running"/>
+
+    <EditText
+        android:id="@+id/custom_dialog_input_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="4dp"
+        android:hint="Duration in minutes"
+        android:inputType="numberDecimal" />
+
+</LinearLayout>
+

@@ -26,6 +26,6 @@ public interface LocationDao {
     @Query("SELECT * FROM location")
     List<Location> getAll();
 
-    @Query("SELECT * FROM location WHERE dateAndTime BETWEEN  :from AND :to")
+    @Query("SELECT * FROM location WHERE datetime(dateAndTime) BETWEEN  datetime(:from) AND datetime(:to)")
     List<Location> getLocationsInTimeRange(Date from, Date to);
 }
