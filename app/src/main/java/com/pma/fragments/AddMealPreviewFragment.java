@@ -62,10 +62,10 @@ public class AddMealPreviewFragment extends Fragment implements GroceryAmountRec
                 df.setRoundingMode(RoundingMode.CEILING);
 
                 adapter.setPairs(meal.getGroceryAndAmountPairs());
-                ((TextView)root.findViewById(R.id.total_kcal)).setText(df.format(meal.getTotalKcal()));
-                ((TextView)root.findViewById(R.id.total_protein)).setText(df.format(meal.getTotalProtein()));
-                ((TextView)root.findViewById(R.id.total_carb)).setText(df.format(meal.getTotalCarb()));
-                ((TextView)root.findViewById(R.id.total_fat)).setText(df.format(meal.getTotalFat()));
+                ((TextView)root.findViewById(R.id.total_kcal)).setText(df.format(meal.getTotalKcal()) + " kcal");
+                ((TextView)root.findViewById(R.id.total_protein)).setText(df.format(meal.getTotalProtein()) + " gr");
+                ((TextView)root.findViewById(R.id.total_carb)).setText(df.format(meal.getTotalCarb()) + " gr");
+                ((TextView)root.findViewById(R.id.total_fat)).setText(df.format(meal.getTotalFat()) + " gr");
             }
         });
 

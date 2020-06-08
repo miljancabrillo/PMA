@@ -14,7 +14,6 @@ import com.pma.dao.MealDao;
 import com.pma.model.Activity;
 import com.pma.model.Meal;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -98,7 +97,7 @@ public class DayPreviewViewModel extends AndroidViewModel {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            List<Activity> activitiesList = activityDao.getActivitiesByDate(day);
+            List<Activity> activitiesList = activityDao.getFinishedActivitiesByDay(day);
             activities.postValue(activitiesList);
             return null;
         }

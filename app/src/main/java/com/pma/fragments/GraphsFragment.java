@@ -170,7 +170,7 @@ public class GraphsFragment extends Fragment {
 
 
         BarDataSet dataSet = new BarDataSet(BarEntry, "");
-        dataSet.setColor(Color.parseColor("#de9621"));
+        dataSet.setColor(Color.parseColor("#668f29"));
 
         ArrayList<String> theDates = new ArrayList<>();
         if(date1.matches("") || date2.matches("")) {

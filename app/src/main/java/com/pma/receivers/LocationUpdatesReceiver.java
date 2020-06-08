@@ -23,6 +23,7 @@ public class LocationUpdatesReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        NotificationUtils.sendNotification(context,"Location updates received");
 
         locationDao = Database.getInstance(context).locationDao();
 
@@ -43,7 +44,6 @@ public class LocationUpdatesReceiver extends BroadcastReceiver {
                         SaveLocationTask task =  new SaveLocationTask();
                         task.execute(location);
                     }
-                    NotificationUtils.sendNotification(context,"Location updates received");
                 }
             }
         }

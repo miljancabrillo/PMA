@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pma.R;
@@ -65,7 +66,7 @@ public class GroceryRecyclerAdapter extends RecyclerView.Adapter<GroceryRecycler
         TextView protein;
         TextView fat;
         TextView carb;
-        Button add;
+        AppCompatImageButton add;
         View expandable;
 
         public GroceryHolder(@NonNull View itemView) {

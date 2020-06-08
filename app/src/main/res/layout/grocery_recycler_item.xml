@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_marginTop="1dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="1dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,95 +12,105 @@
         <TextView
             android:id="@+id/grocery_name"
             style="@style/TextAppearance.AppCompat.Medium"
-            android:layout_width="match_parent"
+            android:layout_width="340dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="15dp"
             android:text="Chicken breast" />
+
+        <ImageButton
+            android:id="@+id/add"
+            android:padding="3dp"
+            android:layout_marginRight="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_toLeftOf="@id/grocery_name"
+            android:background="#ffffff"
+            android:src="@drawable/ic_add_circle_black_24dp" />
 
         <RelativeLayout
             android:id="@+id/expandable_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/grocery_name"
+            android:layout_marginVertical="5dp"
             android:paddingHorizontal="20dp">
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/energy_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:textStyle="bold"
-                android:text="Energy" />
+                android:layout_marginLeft="5dp"
+                android:text="Energy"
+                android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/kcal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="5dp"
                 android:text="100kcal" />
+
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/kcal"
-                android:textStyle="bold"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentRight="true"
-                android:text="Protein" />
+                android:layout_marginLeft="5dp"
+                android:text="Protein"
+                android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/protein"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/kcal"
-                android:layout_centerHorizontal="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="5dp"
                 android:text="50 gr" />
+
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/protein"
                 android:layout_alignParentStart="true"
-                android:textStyle="bold"
-                android:layout_alignParentRight="true"
-                android:text="Carbs" />
+                android:layout_marginLeft="5dp"
+                android:text="Carbs"
+                android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/carb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/protein"
-                android:layout_centerHorizontal="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="5dp"
                 android:text="50 gr" />
+
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/carb"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentRight="true"
-                android:textStyle="bold"
-                android:text="Fats" />
+                android:layout_marginLeft="5dp"
+                android:text="Fats"
+                android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/fat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/carb"
-                android:layout_centerHorizontal="true"
-                android:text="50 gr" />
-
-            <Button
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/protein"
                 android:layout_alignParentEnd="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginTop="7dp"
-                android:id="@+id/add"
-                android:text="ADD" />
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="5dp"
+                android:text="50 gr" />
 
 
         </RelativeLayout>

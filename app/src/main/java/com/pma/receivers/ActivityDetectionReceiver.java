@@ -28,6 +28,8 @@ public class ActivityDetectionReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        NotificationUtils.sendNotification(context, "Walking!");
+
         activityDao = Database.getInstance(context).activityDao();
         userDao = Database.getInstance(context).userDao();
         this.context = context;
@@ -43,7 +45,6 @@ public class ActivityDetectionReceiver extends BroadcastReceiver {
                     if(userId.equals("")) return;
 
                     Activity activity = new Activity();
-                    NotificationUtils.sendNotification(context, "Walking started!");
 
                     long elapsedSeconds = (SystemClock.elapsedRealtimeNanos() - event.getElapsedRealTimeNanos())/1000000000;
                     activity.setDate(new Date());
@@ -52,9 +53,7 @@ public class ActivityDetectionReceiver extends BroadcastReceiver {
                     startTime.setTime(startTime.getTime() + elapsedSeconds*1000);
                     activity.setStartTime(startTime);
 
-                    activity.setName("Walking");
-
-                    //NotificationUtils.sendNotification(context, "Walking started!" + Long.toString(elapsedSeconds));
+                    activity.setName("Šetnja (automatski zabilježena)");
 
                     StartActivityTask task = new StartActivityTask();
                     task.execute(activity);

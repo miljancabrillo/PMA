@@ -28,10 +28,10 @@ public interface ActivityDao {
     @Query("SELECT * FROM activity")
     List<Activity> getAll();
 
-    @Query("SELECT * FROM activity WHERE name = 'Walking' AND finished = 0")
+    @Query("SELECT * FROM activity WHERE name = 'Šetnja (automatski zabilježena)' AND finished = 0")
     Activity getStartedWalkingActivity();
 
-    @Query("SELECT * FROM activity WHERE name = 'Walking' and finished = 1 and date(date) = date(:date)")
+    @Query("SELECT * FROM activity WHERE name = 'Šetnja (automatski zabilježena)' and finished = 1 and date(date) = date(:date)")
     List<Activity> getFinishedWalkingActivitiesByDay(Date date);
 
     @Query("SELECT date(date) as day, SUM(kcalBurned) as kcalOut FROM activity WHERE finished = 1 GROUP BY date(date)")
@@ -40,8 +40,8 @@ public interface ActivityDao {
     @Query("SELECT * FROM activity WHERE name = 'Bazalni metabolizam' and date(date) = date(:date)")
     Activity getBMRActivity(Date date);
 
-    @Query("SELECT * FROM activity WHERE date(date) = date(:date)")
-    List<Activity> getActivitiesByDate(Date date);
+    @Query("SELECT * FROM activity WHERE date(date) = date(:date) and finished = 1")
+    List<Activity> getFinishedActivitiesByDay(Date date);
 
 
 }

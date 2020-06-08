@@ -13,25 +13,46 @@
         android:orientation="vertical"
         tools:context=".fragments.GraphsFragment">
 
-        <EditText
-            android:id="@+id/date_input"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
-            android:background="@drawable/border"
-            android:hint="Select date from"
-            android:inputType="none"
-            android:padding="10dp" />
+            app:cardBackgroundColor="#ffffff"
+            app:cardCornerRadius="2dp">
 
-        <EditText
-            android:id="@+id/date_input1"
+            <EditText
+                android:id="@+id/date_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:drawablePadding="8dp"
+                android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                android:hint="From date"
+                android:inputType="none"
+                android:padding="10dp" />
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
-            android:background="@drawable/border"
-            android:hint="Select date to"
-            android:inputType="none"
-            android:padding="10dp" />
+            app:cardBackgroundColor="#ffffff"
+            app:cardCornerRadius="2dp">
+
+            <EditText
+                android:id="@+id/date_input1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:drawablePadding="8dp"
+                android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                android:hint="To date"
+                android:inputType="none"
+                android:padding="10dp" />
+
+        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -44,9 +65,7 @@
                 android:id="@+id/spinner1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:foregroundTintMode="multiply"
-                android:spinnerMode="dropdown"
-                android:theme="@style/ThemeOverlay.AppCompat.Light" />
+                android:spinnerMode="dropdown" />
 
         </androidx.cardview.widget.CardView>
 
