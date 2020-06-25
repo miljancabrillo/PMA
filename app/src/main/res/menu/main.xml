@@ -22,6 +22,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/synchronization"
+        android:orderInCategory="100"
+        android:title="Data synchronization"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_log_out"
         android:orderInCategory="100"
         android:title="Log out"
