@@ -19,7 +19,7 @@ import com.pma.model.User;
 
 
 @androidx.room.Database(entities = {User.class, Grocery.class,
-        GroceryAndAmountPair.class, Meal.class, Activity.class, Location.class, ActivityType.class}, version = 7)
+        GroceryAndAmountPair.class, Meal.class, Activity.class, Location.class, ActivityType.class}, version = 8)
 @TypeConverters({DateStringConverter.class})
 public abstract class Database extends RoomDatabase {
 
@@ -43,7 +43,7 @@ public abstract class Database extends RoomDatabase {
         if(instance == null){
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     Database.class, "pma_database")
-                    .createFromAsset("databases/pma_database.db")
+                    //.createFromAsset("databases/pma_database.db")
                     .fallbackToDestructiveMigration()
                     .addCallback(callback)
                     .build();

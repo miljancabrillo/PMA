@@ -32,6 +32,7 @@ public class Meal {
     private float totalProtein;
     private float totalCarb;
     private float totalFat;
+    private boolean isSynced = false;
 
     public String getDateString(){
         return new SimpleDateFormat("dd-MM-yyyy").format(dateAndTime);

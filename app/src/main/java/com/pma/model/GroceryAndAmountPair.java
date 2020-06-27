@@ -24,6 +24,7 @@ public class GroceryAndAmountPair {
     private int groceryId;
     private int mealId;
     private float amount;
+    private boolean isSynced = false;
 
     public GroceryAndAmountPair(Grocery grocery, float amount){
         this.grocery = grocery;

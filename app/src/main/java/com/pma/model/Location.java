@@ -23,5 +23,6 @@ public class Location {
     private double lon;
     private double lat;
     private Date dateAndTime;
+    private boolean isSynced = false;
 
 }

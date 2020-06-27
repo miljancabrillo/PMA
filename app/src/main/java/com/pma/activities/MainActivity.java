@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.synchronization:
                 Intent intent3 = new Intent(this, SynchronizationService.class);
-                startActivity(intent3);
+                startService(intent3);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

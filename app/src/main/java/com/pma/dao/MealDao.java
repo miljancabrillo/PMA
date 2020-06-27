@@ -46,4 +46,7 @@ public interface MealDao {
 
     @Query("SELECT * FROM meal WHERE date(dateAndTime) = date(:date)")
     List<Meal> getMealsByDay(Date date);
+
+    @Query("SELECT * FROM meal WHERE isSynced != 1")
+    List<Meal> getNotSyncedMeals();
 }

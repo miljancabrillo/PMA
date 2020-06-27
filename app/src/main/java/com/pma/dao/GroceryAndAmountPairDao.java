@@ -3,6 +3,7 @@ package com.pma.dao;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.Query;
 import androidx.room.Update;
 
 import com.pma.model.GroceryAndAmountPair;
@@ -23,5 +24,8 @@ public interface GroceryAndAmountPairDao {
 
     @Delete
     void delete(GroceryAndAmountPair pair);
+
+    @Query("SELECT * FROM groceryandamountpair WHERE isSynced != 1")
+    List<GroceryAndAmountPair> getNotSyncedGroceryAndAmountPairs();
 
 }

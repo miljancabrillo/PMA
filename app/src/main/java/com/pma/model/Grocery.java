@@ -27,6 +27,7 @@ public class Grocery {
     private float proteinPer100gr;
     private float carbPer100gr;
     private float fatPer100gr;
+    private boolean isSynced = false;
     @Ignore
     private boolean expanded = false;
 

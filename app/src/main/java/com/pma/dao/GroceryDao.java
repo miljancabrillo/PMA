@@ -31,4 +31,7 @@ public interface GroceryDao {
 
     @Query("SELECT * FROM Grocery where name like :searchString;")
     List<Grocery> searchByName(String searchString);
+
+    @Query("SELECT * FROM grocery WHERE isSynced != 1")
+    List<Grocery> getNotSyncedGroceries();
 }

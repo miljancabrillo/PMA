@@ -28,4 +28,7 @@ public interface ActivityTypeDao {
     @Query("SELECT * FROM ActivityType where name like :searchString;")
     List<ActivityType> searchByName(String searchString);
 
+    @Query("SELECT * FROM ActivityType WHERE isSynced != 1")
+    List<ActivityType> getNotSyncedActivityTypes();
+
 }

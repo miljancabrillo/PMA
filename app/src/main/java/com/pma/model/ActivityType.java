@@ -17,4 +17,5 @@ public class ActivityType {
     private int id;
     private String name;
     private float met;
+    private boolean isSynced = false;
 }
