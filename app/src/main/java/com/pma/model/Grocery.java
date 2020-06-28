@@ -36,4 +36,8 @@ public class Grocery {
         if(this.id == ((Grocery)obj).getId()) return true;
         return false;
     }
+
+    public void setSynced(boolean synced){
+        this.isSynced = synced;
+    }
 }

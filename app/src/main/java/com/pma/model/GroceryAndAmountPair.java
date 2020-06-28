@@ -42,4 +42,8 @@ public class GroceryAndAmountPair {
         if(pair.getGrocery().equals(this.grocery) && pair.getAmount() == this.amount) return true;
         return false;
     }
+
+    public void setSynced(boolean synced){
+        this.isSynced = synced;
+    }
 }

@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.common.api.Response;
 import com.pma.dao.Database;
 import com.pma.model.Activity;
 import com.pma.model.ActivityType;
@@ -18,6 +19,8 @@ import com.pma.model.User;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
@@ -30,9 +33,6 @@ public class SynchronizationService extends IntentService {
      *
      * @param name Used to name the worker thread, important only for debugging.
      */
-    public SynchronizationService(String name) {
-        super(name);
-    }
 
     private List<Activity> activities;
     private List<ActivityType> activityTypes;
@@ -41,6 +41,15 @@ public class SynchronizationService extends IntentService {
     private List<Location> locations;
     private List<Meal> meals;
     private List<User> users;
+
+    public SynchronizationService() {
+        super("");
+    }
+
+    public SynchronizationService(String name) {
+        super(name);
+    }
+
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
@@ -71,7 +80,7 @@ public class SynchronizationService extends IntentService {
     private class ActivityTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            String url = "http://localhost:11000/syncActivity";
+            String url = "http://192.168.1.19:11000/syncActivity";
             activities = Database.getInstance(SynchronizationService.this).activityDao().getNotSyncedActivities();
             RestTemplate restTemplate = new RestTemplate();
             try{
@@ -79,16 +88,17 @@ public class SynchronizationService extends IntentService {
                 HttpHeaders headers = new HttpHeaders();
                 headers.add("Content-Type", "application/json");
                 HttpEntity<Activity> entity = new HttpEntity<Activity>((Activity) activities, headers);
-                restTemplate.exchange(url, HttpMethod.POST, entity, Activity.class);
-
+                ResponseEntity<Activity> response = restTemplate.exchange(url, HttpMethod.POST, entity, Activity.class);
+                HttpStatus status = response.getStatusCode();
+                if(status == HttpStatus.OK) {
+                    for (int i = 0; i < activities.size(); i++) {
+                        activities.get(i).setSynced(true);
+                        Database.getInstance(SynchronizationService.this).activityDao().update(activities.get(i));
+                    }
+                }
             }catch (Exception e) {
                 e.getMessage();
                 return null;
-            }
-
-            for (int i =0; i<activities.size(); i++){
-                activities.get(i).setIsSynced(true);
-                Database.getInstance(SynchronizationService.this).activityDao().update(activities.get(i));
             }
 
             return null;
@@ -98,7 +108,7 @@ public class SynchronizationService extends IntentService {
     private class ActivityTypeTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            String url = "http://localhost:11000/syncActivityType";
+            String url = "http://192.168.1.19:11000/syncActivityType";
             activityTypes = Database.getInstance(SynchronizationService.this).activityTypeDao().getNotSyncedActivityTypes();
             RestTemplate restTemplate = new RestTemplate();
             try{
@@ -106,17 +116,20 @@ public class SynchronizationService extends IntentService {
                 HttpHeaders headers = new HttpHeaders();
                 headers.add("Content-Type", "application/json");
                 HttpEntity<ActivityType> entity = new HttpEntity<ActivityType>((ActivityType) activityTypes, headers);
-                restTemplate.exchange(url, HttpMethod.POST, entity, ActivityType.class);
-
+                ResponseEntity<ActivityType> response = restTemplate.exchange(url, HttpMethod.POST, entity, ActivityType.class);
+                HttpStatus status = response.getStatusCode();
+                if(status == HttpStatus.OK) {
+                    for (int i = 0; i < activityTypes.size(); i++) {
+                        activityTypes.get(i).setSynced(true);
+                        Database.getInstance(SynchronizationService.this).activityTypeDao().update(activityTypes.get(i));
+                    }
+                }
             }catch (Exception e) {
                 e.getMessage();
                 return null;
             }
 
-            for (int i =0; i<activityTypes.size(); i++){
-                activityTypes.get(i).setIsSynced(true);
-                Database.getInstance(SynchronizationService.this).activityTypeDao().update(activityTypes.get(i));
-            }
+
 
             return null;
         }
@@ -125,7 +138,7 @@ public class SynchronizationService extends IntentService {
     private class GroceryTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            String url = "http://localhost:11000/syncGrocery";
+            String url = "http://192.168.1.19:11000/syncGrocery";
             groceries = Database.getInstance(SynchronizationService.this).groceryDao().getNotSyncedGroceries();
             RestTemplate restTemplate = new RestTemplate();
             try{
@@ -133,17 +146,20 @@ public class SynchronizationService extends IntentService {
                 HttpHeaders headers = new HttpHeaders();
                 headers.add("Content-Type", "application/json");
                 HttpEntity<Grocery> entity = new HttpEntity<Grocery>((Grocery) groceries, headers);
-                restTemplate.exchange(url, HttpMethod.POST, entity, Grocery.class);
-
+                ResponseEntity<Grocery> response = restTemplate.exchange(url, HttpMethod.POST, entity, Grocery.class);
+                HttpStatus status = response.getStatusCode();
+                if(status == HttpStatus.OK) {
+                    for (int i = 0; i < groceries.size(); i++) {
+                        groceries.get(i).setSynced(true);
+                        Database.getInstance(SynchronizationService.this).groceryDao().update(groceries.get(i));
+                    }
+                }
             }catch (Exception e) {
                 e.getMessage();
                 return null;
             }
 
-            for (int i =0; i<groceries.size(); i++){
-                groceries.get(i).setIsSynced(true);
-                Database.getInstance(SynchronizationService.this).groceryDao().update(groceries.get(i));
-            }
+
 
             return null;
         }
@@ -152,7 +168,7 @@ public class SynchronizationService extends IntentService {
     private class GroceryAndAmountPairTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            String url = "http://localhost:11000/syncGroceryAndAmount";
+            String url = "http://192.168.1.19:11000/syncGroceryAndAmount";
             groceryAndAmountPairs = Database.getInstance(SynchronizationService.this).pairDao().getNotSyncedGroceryAndAmountPairs();
             RestTemplate restTemplate = new RestTemplate();
             try{
@@ -160,17 +176,20 @@ public class SynchronizationService extends IntentService {
                 HttpHeaders headers = new HttpHeaders();
                 headers.add("Content-Type", "application/json");
                 HttpEntity<GroceryAndAmountPair> entity = new HttpEntity<GroceryAndAmountPair>((GroceryAndAmountPair) groceryAndAmountPairs, headers);
-                restTemplate.exchange(url, HttpMethod.POST, entity, GroceryAndAmountPair.class);
-
+                ResponseEntity<GroceryAndAmountPair> response = restTemplate.exchange(url, HttpMethod.POST, entity, GroceryAndAmountPair.class);
+                HttpStatus status = response.getStatusCode();
+                if(status == HttpStatus.OK) {
+                    for (int i = 0; i < groceryAndAmountPairs.size(); i++) {
+                        groceryAndAmountPairs.get(i).setSynced(true);
+                        Database.getInstance(SynchronizationService.this).pairDao().update(groceryAndAmountPairs.get(i));
+                    }
+                }
             }catch (Exception e) {
                 e.getMessage();
                 return null;
             }
 
-            for (int i =0; i<groceryAndAmountPairs.size(); i++){
-                groceryAndAmountPairs.get(i).setIsSynced(true);
-                Database.getInstance(SynchronizationService.this).pairDao().update(groceryAndAmountPairs.get(i));
-            }
+
 
             return null;
         }
@@ -179,7 +198,7 @@ public class SynchronizationService extends IntentService {
     private class LocationTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            String url = "http://localhost:11000/syncLocation";
+            String url = "http://192.168.1.19:11000/syncLocation";
             locations = Database.getInstance(SynchronizationService.this).locationDao().getNotSyncedLocations();
             RestTemplate restTemplate = new RestTemplate();
             try{
@@ -187,16 +206,17 @@ public class SynchronizationService extends IntentService {
                 HttpHeaders headers = new HttpHeaders();
                 headers.add("Content-Type", "application/json");
                 HttpEntity<Location> entity = new HttpEntity<Location>((Location) locations, headers);
-                restTemplate.exchange(url, HttpMethod.POST, entity, Location.class);
-
+                ResponseEntity<Location> response = restTemplate.exchange(url, HttpMethod.POST, entity, Location.class);
+                HttpStatus status = response.getStatusCode();
+                if(status == HttpStatus.OK) {
+                    for (int i = 0; i < locations.size(); i++) {
+                        locations.get(i).setSynced(true);
+                        Database.getInstance(SynchronizationService.this).locationDao().update(locations.get(i));
+                    }
+                }
             }catch (Exception e) {
                 e.getMessage();
                 return null;
-            }
-
-            for (int i =0; i<locations.size(); i++){
-                locations.get(i).setIsSynced(true);
-                Database.getInstance(SynchronizationService.this).locationDao().update(locations.get(i));
             }
 
             return null;
@@ -206,7 +226,7 @@ public class SynchronizationService extends IntentService {
     private class MealTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            String url = "http://localhost:11000/syncMeal";
+            String url = "http://192.168.1.19:11000/syncMeal";
             meals = Database.getInstance(SynchronizationService.this).mealDao().getNotSyncedMeals();
             RestTemplate restTemplate = new RestTemplate();
             try{
@@ -214,17 +234,20 @@ public class SynchronizationService extends IntentService {
                 HttpHeaders headers = new HttpHeaders();
                 headers.add("Content-Type", "application/json");
                 HttpEntity<Meal> entity = new HttpEntity<Meal>((Meal) meals, headers);
-                restTemplate.exchange(url, HttpMethod.POST, entity, Meal.class);
-
+                ResponseEntity<Meal> response = restTemplate.exchange(url, HttpMethod.POST, entity, Meal.class);
+                HttpStatus status = response.getStatusCode();
+                if(status == HttpStatus.OK) {
+                    for (int i = 0; i < meals.size(); i++) {
+                        meals.get(i).setSynced(true);
+                        Database.getInstance(SynchronizationService.this).mealDao().update(meals.get(i));
+                    }
+                }
             }catch (Exception e) {
                 e.getMessage();
                 return null;
             }
 
-            for (int i =0; i<meals.size(); i++){
-                meals.get(i).setIsSynced(true);
-                Database.getInstance(SynchronizationService.this).mealDao().update(meals.get(i));
-            }
+
 
             return null;
         }
@@ -233,7 +256,7 @@ public class SynchronizationService extends IntentService {
     private class UserTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            String url = "http://localhost:11000/syncUser";
+            String url = "http://192.168.1.19:11000/syncUser";
             users = Database.getInstance(SynchronizationService.this).userDao().getNotSyncedUsers();
             RestTemplate restTemplate = new RestTemplate();
             try{
@@ -241,16 +264,17 @@ public class SynchronizationService extends IntentService {
                 HttpHeaders headers = new HttpHeaders();
                 headers.add("Content-Type", "application/json");
                 HttpEntity<User> entity = new HttpEntity<User>((User) users, headers);
-                restTemplate.exchange(url, HttpMethod.POST, entity, User.class);
-
+                ResponseEntity<User> response = restTemplate.exchange(url, HttpMethod.POST, entity, User.class);
+                HttpStatus status = response.getStatusCode();
+                if(status == HttpStatus.OK) {
+                    for (int i = 0; i < users.size(); i++) {
+                        users.get(i).setSynced(true);
+                        Database.getInstance(SynchronizationService.this).userDao().update(users.get(i));
+                    }
+                }
             }catch (Exception e) {
                 e.getMessage();
                 return null;
-            }
-
-            for (int i =0; i<users.size(); i++){
-                users.get(i).setIsSynced(true);
-                Database.getInstance(SynchronizationService.this).userDao().update(users.get(i));
             }
 
             return null;

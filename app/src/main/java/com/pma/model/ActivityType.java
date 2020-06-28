@@ -18,4 +18,8 @@ public class ActivityType {
     private String name;
     private float met;
     private boolean isSynced = false;
+
+    public void setSynced(boolean synced){
+        this.isSynced = synced;
+    }
 }

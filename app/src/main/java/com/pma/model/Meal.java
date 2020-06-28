@@ -67,4 +67,8 @@ public class Meal {
             pair.setMealId((int)id);
         }
     }
+
+    public void setSynced(boolean synced){
+        this.isSynced = synced;
+    }
 }
