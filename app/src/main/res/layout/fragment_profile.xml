@@ -99,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border"
-                android:hint="Old Password"
+                android:hint="Old password"
                 android:inputType="textPassword"
                 android:padding="10dp" />
         </androidx.cardview.widget.CardView>

@@ -3,6 +3,9 @@ package com.pma.services;
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -56,7 +59,19 @@ public class SynchronizationService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
 
-        ActivityTask task1 = new ActivityTask();
+
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), "Automacko opaljivanje xd", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return;
+
+        /*ActivityTask task1 = new ActivityTask();
         task1.execute();
 
         ActivityTypeTask task2 = new ActivityTypeTask();
@@ -75,7 +90,7 @@ public class SynchronizationService extends IntentService {
         task6.execute();
 
         UserTask task7 = new UserTask();
-        task7.execute();
+        task7.execute();*/
 
     }
 

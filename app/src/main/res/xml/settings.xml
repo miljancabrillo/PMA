@@ -5,23 +5,27 @@
     android:layout_height="match_parent">
 
     <SwitchPreferenceCompat
-        android:defaultValue="true"
+        android:defaultValue="false"
         android:icon="@drawable/ic_sync_black_24dp"
-        android:key="notifications"
-        android:summary="Synchronise data with server when network connection is available"
+        android:key="dataSynchronization"
+        android:summary="Synchronise data periodically with server"
         android:title="Data synchronization"/>
+
 
     <SwitchPreferenceCompat
         android:defaultValue="false"
-        android:key="theme"
-        android:icon="@drawable/ic_theme"
-        android:title="Dark theme" />
+        android:icon="@drawable/ic_network"
+        android:key="mobileData"
+        android:summary="Use mobile data for synchronization"
+        android:title="Mobile data"/>
 
-    <SwitchPreferenceCompat
-        android:defaultValue="true"
-        android:icon="@drawable/ic_location"
-        android:key="location"
-        android:summary="Allow app access to location in background"
-        android:title="Location"/>
+    <EditTextPreference
+        android:key="serverIp"
+        android:icon="@drawable/ic_server"
+        android:title="Server ip address"
+        android:persistent="true"
+        android:dialogTitle="Server ip address"
+        android:dialogMessage=""
+        android:defaultValue="192.161.43.50" />
 
 </PreferenceScreen>

@@ -1,12 +1,14 @@
 package com.pma.activities;
 
 import android.Manifest;
+import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.widget.Toast;
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        SharedPreferences generalPreferences = getSharedPreferences("com.pma.GENERAL_PREFERENCES", Context.MODE_PRIVATE);
+        SharedPreferences generalPreferences = getSharedPreferences("com.pma.preferences", Context.MODE_PRIVATE);
         boolean activityRecognitionEnabled = generalPreferences.getBoolean("activityRecognitionEnabled", false);
 
 
@@ -102,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
             }
             if(!activityRecognitionEnabled) enableActivityRecognition();
         }
+
+        setupSynchronization();
     }
 
     @Override
@@ -151,6 +155,8 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -244,6 +250,27 @@ public class MainActivity extends AppCompatActivity {
 
         mFusedLocationClient.requestLocationUpdates(mLocationRequest, pendingIntent);
 
+    }
+
+    private void setupSynchronization(){
+        SharedPreferences generalPreferences = getSharedPreferences("com.pma.preferences", Context.MODE_PRIVATE);
+        boolean syncEnabled = generalPreferences.getBoolean("dataSynchronization", false);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, SynchronizationService.class);
+
+        if(syncEnabled){
+            PendingIntent pendingIntent = PendingIntent.getService(this, 0,
+                    intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                    SystemClock.elapsedRealtime(), 7000, pendingIntent);
+
+        } else {
+            PendingIntent pendingIntent = PendingIntent.getService(this, 0,
+                    intent, PendingIntent.FLAG_NO_CREATE);
+            if(alarmManager != null && pendingIntent != null) alarmManager.cancel(pendingIntent);
+        }
     }
 
 }

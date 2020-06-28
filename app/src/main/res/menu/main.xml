@@ -6,13 +6,15 @@
         android:id="@+id/action_new_meal"
         android:orderInCategory="100"
         android:title="Add meal"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_meal"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_new_activity"
         android:orderInCategory="100"
+        android:icon="@drawable/ic_activity"
         android:title="Add activity"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 
 
     <item
