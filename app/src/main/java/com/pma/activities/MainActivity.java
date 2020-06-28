@@ -25,6 +25,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.pma.R;
 import com.pma.receivers.ActivityDetectionReceiver;
 import com.pma.receivers.LocationUpdatesReceiver;
+import com.pma.services.SynchronizationService;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -134,6 +135,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_new_activity:
                 Intent intent2 = new Intent(this, AddActivityActivity.class);
                 startActivity(intent2);
+                return true;
+            case R.id.synchronization:
+                Intent intent3 = new Intent(this, SynchronizationService.class);
+                startService(intent3);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

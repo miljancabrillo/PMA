@@ -43,5 +43,8 @@ public interface ActivityDao {
     @Query("SELECT * FROM activity WHERE date(date) = date(:date) and finished = 1")
     List<Activity> getFinishedActivitiesByDay(Date date);
 
+    @Query("SELECT * FROM activity WHERE isSynced != 1")
+    List<Activity> getNotSyncedActivities();
+
 
 }

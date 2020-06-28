@@ -36,6 +36,9 @@
             android:name=".activities.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
+        <service
+            android:enabled="true"
+            android:name=".services.SynchronizationService" />
         <activity android:name=".activities.RegistrationActivity" />
         <activity android:name=".activities.LoginActivity" />
         <activity android:name=".LauncherActivity">

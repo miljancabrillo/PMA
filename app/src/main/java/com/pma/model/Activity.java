@@ -57,4 +57,7 @@ public class Activity {
         this.user = user;
     }
 
+    public void setSynced(boolean synced){
+        this.isSynced = synced;
+    }
 }

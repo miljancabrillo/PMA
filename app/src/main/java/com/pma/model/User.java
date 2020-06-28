@@ -26,4 +26,8 @@ public class User {
     private float height;
     private int age;
     private boolean isSynced = false;
+
+    public void setSynced(boolean synced){
+        this.isSynced = synced;
+    }
 }

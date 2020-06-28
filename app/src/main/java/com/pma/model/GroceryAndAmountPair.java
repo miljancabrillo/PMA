@@ -24,6 +24,7 @@ public class GroceryAndAmountPair {
     private int groceryId;
     private int mealId;
     private float amount;
+    private boolean isSynced = false;
 
     public GroceryAndAmountPair(Grocery grocery, float amount){
         this.grocery = grocery;
@@ -40,5 +41,9 @@ public class GroceryAndAmountPair {
         GroceryAndAmountPair pair = (GroceryAndAmountPair) obj;
         if(pair.getGrocery().equals(this.grocery) && pair.getAmount() == this.amount) return true;
         return false;
+    }
+
+    public void setSynced(boolean synced){
+        this.isSynced = synced;
     }
 }
