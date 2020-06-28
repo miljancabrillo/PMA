@@ -21,65 +21,111 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        app:cardBackgroundColor="#ffffff"
+        app:cardCornerRadius="2dp">
+
     <EditText
         android:id="@+id/grocery_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="7dp"
         android:background="@drawable/border"
         android:hint="Name"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:paddingHorizontal="20dp"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="7dp"
+        app:cardBackgroundColor="#ffffff"
+        app:cardCornerRadius="2dp">
 
     <EditText
         android:id="@+id/grocery_kcal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="7dp"
         android:background="@drawable/border"
         android:hint="Kcals per 100gr"
         android:inputType="numberDecimal"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:paddingHorizontal="20dp"/>
+    </androidx.cardview.widget.CardView>
 
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="7dp"
+        app:cardBackgroundColor="#ffffff"
+        app:cardCornerRadius="2dp">
     <EditText
         android:id="@+id/grocery_proteins"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="7dp"
+        android:paddingHorizontal="20dp"
         android:background="@drawable/border"
         android:hint="Proteins per 100gr"
         android:inputType="numberDecimal"
         android:padding="10dp" />
+    </androidx.cardview.widget.CardView>
 
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="7dp"
+        app:cardBackgroundColor="#ffffff"
+        app:cardCornerRadius="2dp">
     <EditText
         android:id="@+id/grocery_carbs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="7dp"
         android:background="@drawable/border"
         android:hint="Carbs per 100gr"
         android:inputType="numberDecimal"
+        android:paddingHorizontal="20dp"
         android:padding="10dp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="7dp"
+        app:cardBackgroundColor="#ffffff"
+        app:cardCornerRadius="2dp">
 
     <EditText
         android:id="@+id/grocery_fats"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="7dp"
         android:background="@drawable/border"
         android:hint="Fats per 100gr"
         android:inputType="numberDecimal"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:paddingHorizontal="20dp"/>
+    </androidx.cardview.widget.CardView>
 
     <Button
         android:id="@+id/add_grocery_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:paddingHorizontal="60dp"
         android:layout_marginTop="7dp"
         android:theme="@style/ButtonTheme"
         android:text="Add grocery" />

@@ -17,21 +17,17 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.github.mikephil.charting.charts.BarChart;
-
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.google.android.material.datepicker.MaterialDatePicker;
 import com.pma.R;
 import com.pma.model.DailySummary;
 import com.pma.view_model.GraphsViewModel;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -121,9 +117,10 @@ public class GraphsFragment extends Fragment {
                 }
                 category = dropdown.getSelectedItem().toString();
                 graphViewModel.setDates(d1, d2);
-                if(!date1.matches("") && !date2.matches(""))
+                if (!date1.matches("") && !date2.matches("")) {
+                    chart.setVisibility(View.VISIBLE);
                     graphViewModel.getDataByDay();
-                else if((date1.matches("") && !date2.matches("")) || (!date1.matches("") && date2.matches(""))){
+                } else if ((date1.matches("") && !date2.matches("")) || (!date1.matches("") && date2.matches(""))) {
                     Toast.makeText(getContext(), "You must fill all fields", Toast.LENGTH_LONG).show();
                 } else {
                     graphViewModel.getData();
@@ -134,7 +131,7 @@ public class GraphsFragment extends Fragment {
         return root;
     }
 
-    public void addBarChart (BarChart barChart, String date1, String date2, String category, List<DailySummary> dailySummaries){
+    public void addBarChart(BarChart barChart, String date1, String date2, String category, List<DailySummary> dailySummaries) {
         int i = 0;
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         barChart.getLegend().setEnabled(false);
@@ -143,8 +140,8 @@ public class GraphsFragment extends Fragment {
 
         ArrayList<BarEntry> BarEntry = new ArrayList<>();
 
-        if(date1.matches("") || date2.matches("")) {
-            for(DailySummary d : dailySummaries) {
+        if (date1.matches("") || date2.matches("")) {
+            for (DailySummary d : dailySummaries) {
                 if (category.matches("Calories") && d.getKcalIn() != null)
                     BarEntry.add(new BarEntry(0, d.getKcalIn()));
                 if (category.matches("Carbs") && d.getTotalCarb() != null)
@@ -155,14 +152,14 @@ public class GraphsFragment extends Fragment {
                     BarEntry.add(new BarEntry(0, d.getTotalProtein()));
             }
         } else {
-            for(DailySummary d : dailySummaries){
-                if(category.matches("Calories"))
+            for (DailySummary d : dailySummaries) {
+                if (category.matches("Calories"))
                     BarEntry.add(new BarEntry(i, d.getKcalIn()));
-                if(category.matches("Carbs"))
+                if (category.matches("Carbs"))
                     BarEntry.add(new BarEntry(i, d.getTotalCarb()));
-                if(category.matches("Fats"))
+                if (category.matches("Fats"))
                     BarEntry.add(new BarEntry(i, d.getTotalFat()));
-                if(category.matches("Proteins"))
+                if (category.matches("Proteins"))
                     BarEntry.add(new BarEntry(i, d.getTotalProtein()));
                 i++;
             }
@@ -173,10 +170,10 @@ public class GraphsFragment extends Fragment {
         dataSet.setColor(Color.parseColor("#668f29"));
 
         ArrayList<String> theDates = new ArrayList<>();
-        if(date1.matches("") || date2.matches("")) {
+        if (date1.matches("") || date2.matches("")) {
             theDates.add(sdf.format(date));
         } else {
-            for(DailySummary d : dailySummaries){
+            for (DailySummary d : dailySummaries) {
                 theDates.add(sdf.format(d.getDay()));
             }
         }
@@ -217,4 +214,4 @@ public class GraphsFragment extends Fragment {
     }
 
 
-    }
+}

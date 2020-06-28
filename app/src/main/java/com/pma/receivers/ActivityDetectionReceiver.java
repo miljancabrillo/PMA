@@ -50,7 +50,7 @@ public class ActivityDetectionReceiver extends BroadcastReceiver {
                     activity.setDate(new Date());
 
                     Date startTime = new Date();
-                    startTime.setTime(startTime.getTime() + elapsedSeconds*1000);
+                    startTime.setTime(startTime.getTime() - 120*1000); // umanjim za dvije minute vrijeme pocetka radi preciznosti
                     activity.setStartTime(startTime);
 
                     activity.setName("Šetnja (automatski zabilježena)");

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.widget.Toast;
@@ -76,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        SharedPreferences generalPreferences = getSharedPreferences("com.pma.GENERAL_PREFERENCES", Context.MODE_PRIVATE);
+        boolean activityRecognitionEnabled = generalPreferences.getBoolean("activityRecognitionEnabled", false);
+
+
         boolean activityRecognitionPermitted  = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_GRANTED;
 
@@ -85,12 +88,19 @@ public class MainActivity extends AppCompatActivity {
         boolean locationAccessBackgroundPermitted = ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
 
-        if (!(activityRecognitionPermitted && locationAccessBackgroundPermitted && locationAccessForegroundPermitted)) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACTIVITY_RECOGNITION, Manifest.permission.ACCESS_BACKGROUND_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        if(android.os.Build.VERSION.SDK_INT >= 29) {
+            if (!(activityRecognitionPermitted && locationAccessBackgroundPermitted && locationAccessForegroundPermitted)) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACTIVITY_RECOGNITION, Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+                                Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            }
+        } else{
+            if (!locationAccessForegroundPermitted) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 2);
+            }
+            if(!activityRecognitionEnabled) enableActivityRecognition();
         }
-
     }
 
     @Override
@@ -156,6 +166,14 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return;
             }
+            case 2:{
+                if (grantResults.length > 0){
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        enableLocationTracking();
+                    }
+                }
+                return;
+            }
         }
     }
 
@@ -187,6 +205,8 @@ public class MainActivity extends AppCompatActivity {
                 new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void result) {
+                        SharedPreferences generalPreferences = getSharedPreferences("com.pma.GENERAL_PREFERENCES", Context.MODE_PRIVATE);
+                        generalPreferences.edit().putBoolean("activityRecognitionEnabled", true).commit();
                         Toast.makeText(MainActivity.this, "Registering successful", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -211,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
         mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mLocationRequest.setMaxWaitTime(MAX_WAIT_TIME);
+        mLocationRequest.setSmallestDisplacement(5f);
 
         Intent intent = new Intent(this, LocationUpdatesReceiver.class);
         intent.setAction("LOCATION_UPDATES_ACTION");

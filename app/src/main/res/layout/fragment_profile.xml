@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,52 +8,102 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/height"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="7dp"
+            android:text="Height" />
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="7dp"
-            android:background="@drawable/border"
-            android:hint="Height"
-            android:inputType="numberDecimal"
-            android:padding="10dp" />
+            app:cardBackgroundColor="#ffffff"
+            app:cardCornerRadius="2dp">
 
-        <EditText
-            android:id="@+id/weight"
+            <EditText
+                android:id="@+id/height"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:hint="Height"
+                android:inputType="numberDecimal"
+                android:padding="10dp" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="7dp"
+            android:text="Weight" />
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="7dp"
-            android:background="@drawable/border"
-            android:hint="Weight"
-            android:inputType="numberDecimal"
-            android:padding="10dp" />
+            app:cardBackgroundColor="#ffffff"
+            app:cardCornerRadius="2dp">
 
-        <EditText
-            android:id="@+id/Age"
+            <EditText
+                android:id="@+id/weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:hint="Weight"
+                android:inputType="numberDecimal"
+                android:padding="10dp" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="7dp"
+            android:text="Age" />
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="7dp"
-            android:background="@drawable/border"
-            android:hint="Age"
-            android:inputType="numberDecimal"
-            android:padding="10dp" />
+            app:cardBackgroundColor="#ffffff"
+            app:cardCornerRadius="2dp">
 
-        <EditText
-            android:id="@+id/Password"
+            <EditText
+                android:id="@+id/Age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:hint="Age"
+                android:inputType="numberDecimal"
+                android:padding="10dp" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="7dp"
-            android:background="@drawable/border"
-            android:hint="Old Password"
-            android:inputType="textPassword"
-            android:padding="10dp" />
+            app:cardBackgroundColor="#ffffff"
+            app:cardCornerRadius="2dp">
+
+            <EditText
+                android:id="@+id/Password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:hint="Old Password"
+                android:inputType="textPassword"
+                android:padding="10dp" />
+        </androidx.cardview.widget.CardView>
+
         <TextView
             android:id="@+id/textPassword"
             android:layout_width="wrap_content"
@@ -63,16 +114,23 @@
             android:textColor="@color/colorAccent"
             android:textSize="10dp" />
 
-        <EditText
-            android:id="@+id/newPassword"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="7dp"
-            android:background="@drawable/border"
-            android:hint="New password"
-            android:inputType="textPassword"
-            android:padding="10dp" />
+            app:cardBackgroundColor="#ffffff"
+            app:cardCornerRadius="2dp">
+
+            <EditText
+                android:id="@+id/newPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:hint="New password"
+                android:inputType="textPassword"
+                android:padding="10dp" />
+        </androidx.cardview.widget.CardView>
 
         <Button
             android:id="@+id/add_grocery_button"
@@ -80,8 +138,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="7dp"
-            android:theme="@style/ButtonTheme"
-            android:text="Save changes" />
+            android:paddingHorizontal="60dp"
+            android:text="Save changes"
+            android:theme="@style/ButtonTheme" />
 
     </LinearLayout>
 

@@ -23,7 +23,7 @@ public class LocationUpdatesReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        NotificationUtils.sendNotification(context,"Location updates received");
+        //NotificationUtils.sendNotification(context,"Location updates received");
 
         locationDao = Database.getInstance(context).locationDao();
 
@@ -39,7 +39,6 @@ public class LocationUpdatesReceiver extends BroadcastReceiver {
                         com.pma.model.Location location = new com.pma.model.Location();
                         location.setLon(loc.getLongitude());
                         location.setLat(loc.getLatitude());
-
                         location.setDateAndTime(new Date(loc.getTime()));
                         SaveLocationTask task =  new SaveLocationTask();
                         task.execute(location);

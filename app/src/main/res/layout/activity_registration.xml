@@ -1,86 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true">
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
         tools:context=".activities.LoginActivity">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_gravity="center"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:text="KcalCounter"
-            android:textColor="@color/colorAccent"
-            android:textSize="32dp" />
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_logo_title" />
 
-        <EditText
-            android:id="@+id/registration_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:ems="10"
-            android:padding="10dp"
-            android:background="@drawable/border"
-            android:hint="Email"
-            android:inputType="textEmailAddress" />
 
-        <EditText
-            android:id="@+id/registration_password"
+        <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:ems="10"
-            android:padding="10dp"
-            android:background="@drawable/border"
-            android:hint="Password (min 5)"
-            android:inputType="textPassword" />
+            android:paddingHorizontal="20dp"
+            app:cardBackgroundColor="#ffffff"
+            android:layout_gravity="center"
+            app:cardCornerRadius="2dp">
 
-        <EditText
-            android:id="@+id/registration_weight"
+            <EditText
+                android:id="@+id/registration_email"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:padding="10dp"
+                android:background="@drawable/border"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            app:cardBackgroundColor="#ffffff"
+            android:layout_gravity="center"
+            app:cardCornerRadius="2dp">
+
+            <EditText
+                android:id="@+id/registration_password"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:padding="10dp"
+                android:background="@drawable/border"
+                android:hint="Password (min 5)"
+                android:inputType="textPassword" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            app:cardBackgroundColor="#ffffff"
+            android:layout_gravity="center"
+            app:cardCornerRadius="2dp">
+
+            <EditText
+                android:id="@+id/registration_weight"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:ems="10"
+                android:background="@drawable/border"
+                android:inputType="numberDecimal"
+                android:hint="Weight" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingHorizontal="20dp"
+            app:cardBackgroundColor="#ffffff"
+            android:layout_gravity="center"
+            app:cardCornerRadius="2dp">
+
+            <EditText
+                android:id="@+id/registration_height"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:ems="10"
+                android:background="@drawable/border"
+                android:inputType="numberDecimal"
+                android:hint="Height" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            app:cardBackgroundColor="#ffffff"
+            android:layout_gravity="center"
+            app:cardCornerRadius="2dp">
+
+            <EditText
+                android:id="@+id/registration_age"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/border"
+                android:ems="10"
+                android:padding="10dp"
+                android:hint="Age"
+                android:inputType="number" />
+
+        </androidx.cardview.widget.CardView>
+
+        <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"
-            android:ems="10"
-            android:background="@drawable/border"
-            android:inputType="numberDecimal"
-            android:hint="Weight" />
+            android:orientation="horizontal"
+            android:id="@+id/radio_buttons"
+            android:checkedButton="@id/male_radio_button"
+            android:layout_marginTop="10dp">
 
-        <EditText
-            android:id="@+id/registration_height"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"
-            android:ems="10"
-            android:background="@drawable/border"
-            android:inputType="numberDecimal"
-            android:hint="Height" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/male_radio_button"
+                android:text="Male" />
 
-        <EditText
-            android:id="@+id/registration_age"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/border"
-            android:ems="10"
-            android:padding="10dp"
-            android:hint="Age"
-            android:inputType="number" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/female_radio_button"
+                android:text="Female" />
+
+        </RadioGroup>
 
         <Button
             android:id="@+id/registration_button"
@@ -88,11 +158,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:theme="@style/ButtonTheme"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:onClick="registerClick"
             android:paddingHorizontal="60dp"
             android:text="REGISTER" />
-
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </ScrollView>

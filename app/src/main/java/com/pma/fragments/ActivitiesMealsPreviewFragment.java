@@ -70,12 +70,28 @@ public class ActivitiesMealsPreviewFragment extends Fragment implements MealPrev
         viewModel.getActivities().observe(getViewLifecycleOwner(), new Observer<List<Activity>>() {
             @Override
             public void onChanged(List<Activity> activities) {
-                activitiesAdapter.setActivities((ArrayList<Activity>) activities);
+
+                List<Activity> compressedList = new ArrayList<>();
+                Activity totalWalkingActivity = new Activity();
+                totalWalkingActivity.setName("Šetnja (automatski zabilježena)");
+
                 float kcalsSpent = 0;
                 for(Activity act : activities){
                     kcalsSpent += act.getKcalBurned();
+
+                    if(act.getName().equals("Šetnja (automatski zabilježena)")){
+                        totalWalkingActivity.setKcalBurned(totalWalkingActivity.getKcalBurned() + act.getKcalBurned());
+                        totalWalkingActivity.setDuration(totalWalkingActivity.getDuration() + act.getDuration());
+                    }else{
+                        compressedList.add(act);
+                    }
+
                 }
                 totalSpent.setText(df.format(kcalsSpent) + " kcal");
+
+                if(totalWalkingActivity.getDuration() > 0) compressedList.add(totalWalkingActivity);
+                activitiesAdapter.setActivities((ArrayList<Activity>) compressedList);
+
             }
         });
 

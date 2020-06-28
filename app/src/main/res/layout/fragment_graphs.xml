@@ -9,7 +9,6 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="10dp"
         android:orientation="vertical"
         tools:context=".fragments.GraphsFragment">
 
@@ -18,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             app:cardBackgroundColor="#ffffff"
+            android:layout_marginHorizontal="10dp"
             app:cardCornerRadius="2dp">
 
             <EditText
@@ -38,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
+            android:layout_marginHorizontal="10dp"
             app:cardBackgroundColor="#ffffff"
             app:cardCornerRadius="2dp">
 
@@ -59,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             app:cardBackgroundColor="#ffffff"
+            android:layout_marginHorizontal="10dp"
             app:cardCornerRadius="2dp">
 
             <Spinner
@@ -72,10 +74,12 @@
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/bar_chart"
+            android:layout_marginHorizontal="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="7dp"
+            android:visibility="gone"
             android:minHeight="200dp" />
 
         <Button
@@ -83,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingHorizontal="20dp"
+            android:paddingHorizontal="60dp"
             android:text="Show"
             android:theme="@style/ButtonTheme" />
 

@@ -19,14 +19,18 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.Dash;
+import com.google.android.gms.maps.model.Dot;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PatternItem;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.pma.R;
 import com.pma.model.Activity;
 import com.pma.model.Location;
 import com.pma.view_model.DayPreviewViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -64,18 +68,38 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback {
             public void onChanged(List<Activity> activities) {
                 if(activities == null) return;
 
+                float sumLat = 0;
+                float sumLon = 0;
+                int numOfLocations = 0;
+
                 for(Activity activity : activities){
                     if(activity.getLocations() == null) continue;
+                    if(activity.getDuration() < 3) continue;
+
 
                     PolylineOptions options = new PolylineOptions();
                     options.color(Color.parseColor("#ff0000"));
 
+                    ArrayList<PatternItem> pattern = new ArrayList<>();
+                    pattern.add(new Dot());
+                    options.pattern(pattern);
+
                     for (Location loc: activity.getLocations()) {
+
+                        numOfLocations++;
+                        sumLat += loc.getLat();
+                        sumLon += loc.getLon();
+
                         LatLng latLng = new LatLng(loc.getLat(),loc.getLon());
                         options.add(latLng);
                     }
                     map.addPolyline(options);
                 }
+
+               if(numOfLocations != 0){
+                   map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(sumLat/numOfLocations, sumLon/numOfLocations), 13));
+               }
+
             }
         });
     }
