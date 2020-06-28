@@ -109,6 +109,7 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="4dp"
+        android:paddingHorizontal="60dp"
         android:text="Add meal"
         android:theme="@style/ButtonTheme" />
 

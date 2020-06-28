@@ -18,6 +18,7 @@
             android:layout_height="200dp"
             android:layout_gravity="center"
             android:scaleType="fitXY"
+            android:layout_marginLeft="-4dp"
             android:src="@drawable/ic_logo_title" />
 
 

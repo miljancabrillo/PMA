@@ -13,7 +13,6 @@ import com.pma.model.Grocery;
 import com.pma.model.GroceryAndAmountPair;
 import com.pma.model.Location;
 import com.pma.model.Meal;
-import com.pma.model.MealPairRelation;
 import com.pma.model.User;
 
 import org.springframework.http.HttpEntity;
@@ -42,7 +41,7 @@ public class SynchronizationService extends IntentService {
     private List<Location> locations;
     private List<Meal> meals;
     private List<User> users;
-    private String ip = "192.168.1.19";
+    private String ip = "192.168.43.50";
 
 
     public SynchronizationService() {
@@ -60,106 +59,32 @@ public class SynchronizationService extends IntentService {
         ActivityTask task1 = new ActivityTask();
         task1.execute();
 
+        ActivityTypeTask task2 = new ActivityTypeTask();
+        task2.execute();
+
+        GroceryTask task3 = new GroceryTask();
+        task3.execute();
+
+        GroceryAndAmountPairTask task4 = new GroceryAndAmountPairTask();
+        task4.execute();
+
+        LocationTask task5 = new LocationTask();
+        task5.execute();
+
+        MealTask task6 = new MealTask();
+        task6.execute();
+
+        UserTask task7 = new UserTask();
+        task7.execute();
+
     }
 
     private class ActivityTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            String url = "http://" + ip + ":11000/syncUser";
-            users = Database.getInstance(SynchronizationService.this).userDao().getNotSyncedUsers();
-            RestTemplate restTemplate = new RestTemplate();
-            try {
-                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                HttpHeaders headers = new HttpHeaders();
-                headers.add("Content-Type", "application/json");
-                HttpEntity<ArrayList<User>> entity = new HttpEntity<ArrayList<User>>((ArrayList<User>) users, headers);
-                ResponseEntity<User> response = restTemplate.exchange(url, HttpMethod.POST, entity, User.class);
-                HttpStatus status = response.getStatusCode();
-                if (status == HttpStatus.OK) {
-                    for (int i = 0; i < users.size(); i++) {
-                        users.get(i).setSynced(true);
-                        Database.getInstance(SynchronizationService.this).userDao().update(users.get(i));
-                    }
-                }
-            } catch (Exception e) {
-                e.getMessage();
-                return null;
-            }
-
-            url = "http://" + ip + ":11000/syncGrocery";
-            groceries = Database.getInstance(SynchronizationService.this).groceryDao().getNotSyncedGroceries();
-            try {
-                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                HttpHeaders headers = new HttpHeaders();
-                headers.add("Content-Type", "application/json");
-                HttpEntity<ArrayList<Grocery>> entity = new HttpEntity<ArrayList<Grocery>>((ArrayList<Grocery>) groceries, headers);
-                ResponseEntity<Grocery> response = restTemplate.exchange(url, HttpMethod.POST, entity, Grocery.class);
-                HttpStatus status = response.getStatusCode();
-                if (status == HttpStatus.OK) {
-                    for (int i = 0; i < groceries.size(); i++) {
-                        groceries.get(i).setSynced(true);
-                        Database.getInstance(SynchronizationService.this).groceryDao().update(groceries.get(i));
-                    }
-                }
-            } catch (Exception e) {
-                e.getMessage();
-                return null;
-            }
-
-            url = "http://" + ip + ":11000/syncActivityType";
-            activityTypes = Database.getInstance(SynchronizationService.this).activityTypeDao().getNotSyncedActivityTypes();
-            try {
-                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                HttpHeaders headers = new HttpHeaders();
-                headers.add("Content-Type", "application/json");
-                HttpEntity<ArrayList<ActivityType>> entity = new HttpEntity<ArrayList<ActivityType>>((ArrayList<ActivityType>) activityTypes, headers);
-                ResponseEntity<ActivityType> response = restTemplate.exchange(url, HttpMethod.POST, entity, ActivityType.class);
-                HttpStatus status = response.getStatusCode();
-                if (status == HttpStatus.OK) {
-                    for (int i = 0; i < activityTypes.size(); i++) {
-                        activityTypes.get(i).setSynced(true);
-                        Database.getInstance(SynchronizationService.this).activityTypeDao().update(activityTypes.get(i));
-                    }
-                }
-            } catch (Exception e) {
-                e.getMessage();
-                return null;
-            }
-
-            url = "http://" + ip + ":11000/syncLocation";
-            locations = Database.getInstance(SynchronizationService.this).locationDao().getNotSyncedLocations();
-            try {
-                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                HttpHeaders headers = new HttpHeaders();
-                headers.add("Content-Type", "application/json");
-                HttpEntity<ArrayList<Location>> entity = new HttpEntity<ArrayList<Location>>((ArrayList<Location>) locations, headers);
-                ResponseEntity<Location> response = restTemplate.exchange(url, HttpMethod.POST, entity, Location.class);
-                HttpStatus status = response.getStatusCode();
-                if (status == HttpStatus.OK) {
-                    for (int i = 0; i < locations.size(); i++) {
-                        locations.get(i).setSynced(true);
-                        Database.getInstance(SynchronizationService.this).locationDao().update(locations.get(i));
-                    }
-                }
-            } catch (Exception e) {
-                e.getMessage();
-                return null;
-            }
-
-            url = "http://" + ip + ":11000/syncActivity";
+            String url = "http://" + ip + ":11000/syncActivity";
             activities = Database.getInstance(SynchronizationService.this).activityDao().getNotSyncedActivities();
-            if(!activities.isEmpty()) {
-                for (Activity ac : activities) {
-                    if (!ac.getName().equals("Bazalni metabolizam")) {
-                        ActivityType type = Database.getInstance(SynchronizationService.this).activityTypeDao().searchById(ac.getActivityTypeId());
-                        ac.setActivityType(type);
-                        if (ac.getName().equals("Šetnja (automatski zabilježena)")) {
-                            List<Location> list = Database.getInstance(SynchronizationService.this).locationDao().getLocationsInTimeRange(ac.getStartTime(), ac.getEndTime());
-                            ac.setLocations(list);
-                        }
-                    }
-                }
-            }
+            RestTemplate restTemplate = new RestTemplate();
             try {
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 HttpHeaders headers = new HttpHeaders();
@@ -178,32 +103,171 @@ public class SynchronizationService extends IntentService {
                 return null;
             }
 
-            url = "http://" + ip + ":11000/syncMeal";
-            meals = Database.getInstance(SynchronizationService.this).mealDao().getNotSyncedMeals();
-            if(!meals.isEmpty()) {
-                for (Meal m : meals) {
-                    MealPairRelation mealPairRelation = Database.getInstance(SynchronizationService.this).mealDao().getMealWithPairs(m.getId());
-                    for (GroceryAndAmountPair g : mealPairRelation.getPairs()) {
-                        Grocery grocery = Database.getInstance(SynchronizationService.this).groceryDao().getGrocery(g.getGroceryId());
-                        g.setGrocery(grocery);
-                    }
-                    for (GroceryAndAmountPair tmp : mealPairRelation.getPairs()) {
-                        m.getGroceryAndAmountPairs().add(tmp);
-                    }
-                }
-            }
+            return null;
+        }
+    }
 
+    private class ActivityTypeTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            String url = "http://" + ip + ":11000/syncActivityType";
+            activityTypes = Database.getInstance(SynchronizationService.this).activityTypeDao().getNotSyncedActivityTypes();
+            RestTemplate restTemplate = new RestTemplate();
             try {
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 HttpHeaders headers = new HttpHeaders();
                 headers.add("Content-Type", "application/json");
-                HttpEntity<ArrayList<Meal>> entity = new HttpEntity<ArrayList<Meal>>((ArrayList<Meal>) meals, headers);
+                HttpEntity<ActivityType> entity = new HttpEntity<ActivityType>((ActivityType) activityTypes, headers);
+                ResponseEntity<ActivityType> response = restTemplate.exchange(url, HttpMethod.POST, entity, ActivityType.class);
+                HttpStatus status = response.getStatusCode();
+                if (status == HttpStatus.OK) {
+                    for (int i = 0; i < activityTypes.size(); i++) {
+                        activityTypes.get(i).setSynced(true);
+                        Database.getInstance(SynchronizationService.this).activityTypeDao().update(activityTypes.get(i));
+                    }
+                }
+            } catch (Exception e) {
+                e.getMessage();
+                return null;
+            }
+
+
+            return null;
+        }
+    }
+
+    private class GroceryTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            String url = "http://" + ip + ":11000/syncGrocery";
+            groceries = Database.getInstance(SynchronizationService.this).groceryDao().getNotSyncedGroceries();
+            RestTemplate restTemplate = new RestTemplate();
+            try {
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                HttpHeaders headers = new HttpHeaders();
+                headers.add("Content-Type", "application/json");
+                HttpEntity<Grocery> entity = new HttpEntity<Grocery>((Grocery) groceries, headers);
+                ResponseEntity<Grocery> response = restTemplate.exchange(url, HttpMethod.POST, entity, Grocery.class);
+                HttpStatus status = response.getStatusCode();
+                if (status == HttpStatus.OK) {
+                    for (int i = 0; i < groceries.size(); i++) {
+                        groceries.get(i).setSynced(true);
+                        Database.getInstance(SynchronizationService.this).groceryDao().update(groceries.get(i));
+                    }
+                }
+            } catch (Exception e) {
+                e.getMessage();
+                return null;
+            }
+
+
+            return null;
+        }
+    }
+
+    private class GroceryAndAmountPairTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            String url = "http://" + ip + ":11000/syncGroceryAndAmount";
+            groceryAndAmountPairs = Database.getInstance(SynchronizationService.this).pairDao().getNotSyncedGroceryAndAmountPairs();
+            RestTemplate restTemplate = new RestTemplate();
+            try {
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                HttpHeaders headers = new HttpHeaders();
+                headers.add("Content-Type", "application/json");
+                HttpEntity<GroceryAndAmountPair> entity = new HttpEntity<GroceryAndAmountPair>((GroceryAndAmountPair) groceryAndAmountPairs, headers);
+                ResponseEntity<GroceryAndAmountPair> response = restTemplate.exchange(url, HttpMethod.POST, entity, GroceryAndAmountPair.class);
+                HttpStatus status = response.getStatusCode();
+                if (status == HttpStatus.OK) {
+                    for (int i = 0; i < groceryAndAmountPairs.size(); i++) {
+                        groceryAndAmountPairs.get(i).setSynced(true);
+                        Database.getInstance(SynchronizationService.this).pairDao().update(groceryAndAmountPairs.get(i));
+                    }
+                }
+            } catch (Exception e) {
+                e.getMessage();
+                return null;
+            }
+
+
+            return null;
+        }
+    }
+
+    private class LocationTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            String url = "http://" + ip + ":11000/syncLocation";
+            locations = Database.getInstance(SynchronizationService.this).locationDao().getNotSyncedLocations();
+            RestTemplate restTemplate = new RestTemplate();
+            try {
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                HttpHeaders headers = new HttpHeaders();
+                headers.add("Content-Type", "application/json");
+                HttpEntity<Location> entity = new HttpEntity<Location>((Location) locations, headers);
+                ResponseEntity<Location> response = restTemplate.exchange(url, HttpMethod.POST, entity, Location.class);
+                HttpStatus status = response.getStatusCode();
+                if (status == HttpStatus.OK) {
+                    for (int i = 0; i < locations.size(); i++) {
+                        locations.get(i).setSynced(true);
+                        Database.getInstance(SynchronizationService.this).locationDao().update(locations.get(i));
+                    }
+                }
+            } catch (Exception e) {
+                e.getMessage();
+                return null;
+            }
+
+            return null;
+        }
+    }
+
+    private class MealTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            String url = "http://" + ip + ":11000/syncMeal";
+            meals = Database.getInstance(SynchronizationService.this).mealDao().getNotSyncedMeals();
+            RestTemplate restTemplate = new RestTemplate();
+            try {
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                HttpHeaders headers = new HttpHeaders();
+                headers.add("Content-Type", "application/json");
+                HttpEntity<Meal> entity = new HttpEntity<Meal>((Meal) meals, headers);
                 ResponseEntity<Meal> response = restTemplate.exchange(url, HttpMethod.POST, entity, Meal.class);
                 HttpStatus status = response.getStatusCode();
                 if (status == HttpStatus.OK) {
                     for (int i = 0; i < meals.size(); i++) {
                         meals.get(i).setSynced(true);
                         Database.getInstance(SynchronizationService.this).mealDao().update(meals.get(i));
+                    }
+                }
+            } catch (Exception e) {
+                e.getMessage();
+                return null;
+            }
+
+
+            return null;
+        }
+    }
+
+    private class UserTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            String url = "http://" + ip + "/syncUser";
+            users = Database.getInstance(SynchronizationService.this).userDao().getNotSyncedUsers();
+            RestTemplate restTemplate = new RestTemplate();
+            try {
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                HttpHeaders headers = new HttpHeaders();
+                headers.add("Content-Type", "application/json");
+                HttpEntity<User> entity = new HttpEntity<User>((User) users, headers);
+                ResponseEntity<User> response = restTemplate.exchange(url, HttpMethod.POST, entity, User.class);
+                HttpStatus status = response.getStatusCode();
+                if (status == HttpStatus.OK) {
+                    for (int i = 0; i < users.size(); i++) {
+                        users.get(i).setSynced(true);
+                        Database.getInstance(SynchronizationService.this).userDao().update(users.get(i));
                     }
                 }
             } catch (Exception e) {
