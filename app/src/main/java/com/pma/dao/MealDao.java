@@ -32,6 +32,7 @@ public interface MealDao {
     MealPairRelation getMealWithPairs(int id);
 
 
+
     @Query("SELECT * FROM meal WHERE meal.id = :id")
     Meal getMeal(int id);
 

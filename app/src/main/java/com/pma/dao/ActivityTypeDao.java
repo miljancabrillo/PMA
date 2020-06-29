@@ -22,6 +22,9 @@ public interface ActivityTypeDao {
     @Delete
     void delete(ActivityType activityType);
 
+    @Query("SELECT * FROM ActivityType WHERE id = :id")
+    ActivityType searchById(int id);
+
     @Query("SELECT * FROM ActivityType")
     List<ActivityType> getAll();
 

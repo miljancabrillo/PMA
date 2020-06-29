@@ -42,6 +42,8 @@ public class Meal {
         return new SimpleDateFormat("HH:mm").format(dateAndTime);
     }
 
+
+
     public void addGroceryAmountPair(GroceryAndAmountPair pair){
         if(groceryAndAmountPairs == null){
             groceryAndAmountPairs = new ArrayList<>();
