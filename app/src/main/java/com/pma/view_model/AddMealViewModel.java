@@ -12,10 +12,12 @@ import com.pma.dao.Database;
 import com.pma.dao.GroceryAndAmountPairDao;
 import com.pma.dao.GroceryDao;
 import com.pma.dao.MealDao;
+import com.pma.dao.UserDao;
 import com.pma.model.Grocery;
 import com.pma.model.GroceryAndAmountPair;
 import com.pma.model.Meal;
 import com.pma.model.MealPairRelation;
+import com.pma.utils.Utils;
 
 import java.util.Date;
 import java.util.List;
@@ -29,6 +31,7 @@ public class AddMealViewModel extends AndroidViewModel {
     private GroceryDao groceriesDao;
     private GroceryAndAmountPairDao pairDao;
     private MealDao mealDao;
+    private UserDao userDao;
     private MutableLiveData<Meal> meal = new MutableLiveData<>();
 
 
@@ -38,6 +41,7 @@ public class AddMealViewModel extends AndroidViewModel {
         groceriesDao = db.groceryDao();
         pairDao = db.pairDao();
         mealDao = db.mealDao();
+        userDao = db.userDao();
         SearchTask task = new SearchTask();
         task.execute("");
         meal.setValue(new Meal());
@@ -86,6 +90,7 @@ public class AddMealViewModel extends AndroidViewModel {
 
         @Override
         protected Void doInBackground(Void... voids) {
+            meal.getValue().setUser(userDao.findUserByEmail(Utils.getCurrentUsername(getApplication())));
             long mealId = mealDao.insert(meal.getValue());
             meal.getValue().setMealId(mealId);
             pairDao.insertMultiple(meal.getValue().getGroceryAndAmountPairs());

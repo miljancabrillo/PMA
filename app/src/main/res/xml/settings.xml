@@ -26,6 +26,6 @@
         android:persistent="true"
         android:dialogTitle="Server ip address"
         android:dialogMessage=""
-        android:defaultValue="192.161.43.50" />
+        android:defaultValue="192.168.43.50" />
 
 </PreferenceScreen>

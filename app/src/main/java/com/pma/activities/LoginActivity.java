@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             if(validationSuccessful){
-                SharedPreferences preferences = getSharedPreferences("com.pma.LOGIN_PREFERENCES", Context.MODE_PRIVATE);
+                SharedPreferences preferences = getSharedPreferences("com.pma.preferences", Context.MODE_PRIVATE);
                 preferences.edit().putString("userId", email).commit();
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);

@@ -36,6 +36,7 @@ public interface MealDao {
     @Query("SELECT * FROM meal WHERE meal.id = :id")
     Meal getMeal(int id);
 
+    @Transaction
     @Query("SELECT date(dateAndTime) as day, SUM(totalKcal) as kcalIn FROM meal GROUP BY date(dateAndTime)")
     List<DailySummary> getDailySummariesKcalIn();
 

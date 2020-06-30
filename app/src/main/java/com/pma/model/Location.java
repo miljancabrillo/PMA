@@ -24,6 +24,7 @@ public class Location {
     private double lat;
     private Date dateAndTime;
     private boolean isSynced = false;
+    private String userEmail;
 
     public void setSynced(boolean synced){
         this.isSynced = synced;

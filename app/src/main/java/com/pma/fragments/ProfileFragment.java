@@ -44,7 +44,7 @@ public class ProfileFragment extends Fragment {
 
         final View root = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("com.pma.LOGIN_PREFERENCES", Context.MODE_PRIVATE);
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("com.pma.preferences", Context.MODE_PRIVATE);
         loggedUser = preferences.getString("userId", "");
 
         height = root.findViewById(R.id.height);

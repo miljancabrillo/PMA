@@ -16,7 +16,7 @@ import java.lang.reflect.AccessibleObject;
 public class Utils {
 
     public static String getCurrentUsername(Context context){
-        SharedPreferences loginPreferences = context.getSharedPreferences("com.pma.LOGIN_PREFERENCES", Context.MODE_PRIVATE);
+        SharedPreferences loginPreferences = context.getSharedPreferences("com.pma.preferences", Context.MODE_PRIVATE);
         return loginPreferences.getString("userId", "");
     }
 

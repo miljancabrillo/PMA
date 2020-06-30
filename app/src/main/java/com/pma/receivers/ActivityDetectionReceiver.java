@@ -28,7 +28,7 @@ public class ActivityDetectionReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        NotificationUtils.sendNotification(context, "Walking!");
+        //NotificationUtils.sendNotification(context, "Walking!");
 
         activityDao = Database.getInstance(context).activityDao();
         userDao = Database.getInstance(context).userDao();
@@ -50,7 +50,7 @@ public class ActivityDetectionReceiver extends BroadcastReceiver {
                     activity.setDate(new Date());
 
                     Date startTime = new Date();
-                    startTime.setTime(startTime.getTime() - 120*1000); // umanjim za dvije minute vrijeme pocetka radi preciznosti
+                    startTime.setTime(startTime.getTime() - elapsedSeconds*1000);
                     activity.setStartTime(startTime);
 
                     activity.setName("Šetnja (automatski zabilježena)");
@@ -62,12 +62,10 @@ public class ActivityDetectionReceiver extends BroadcastReceiver {
                 }else if(event.getActivityType() == DetectedActivity.WALKING &&
                         event.getTransitionType() == ActivityTransition.ACTIVITY_TRANSITION_EXIT){
 
-                    NotificationUtils.sendNotification(context, "Walking finished!");
-
                     long elapsedSeconds = (SystemClock.elapsedRealtimeNanos() - event.getElapsedRealTimeNanos())/1000000000;
 
                     Date endTime = new Date();
-                    endTime.setTime(endTime.getTime() + elapsedSeconds*1000);
+                    endTime.setTime(endTime.getTime() - elapsedSeconds*1000);
 
                     FinishActivityTask task = new FinishActivityTask();
                     task.execute(endTime);
@@ -89,6 +87,8 @@ public class ActivityDetectionReceiver extends BroadcastReceiver {
 
     private class FinishActivityTask extends AsyncTask<Date, Void, Void>{
 
+        private float duration = 0;
+
         @Override
         protected Void doInBackground(Date... dates) {
             Activity activity = activityDao.getStartedWalkingActivity();
@@ -103,7 +103,7 @@ public class ActivityDetectionReceiver extends BroadcastReceiver {
 
             long diffInMillies = Math.abs(activity.getEndTime().getTime() - activity.getStartTime().getTime());
             long diff = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
-            float duration = diff;
+            duration = diff;
             activity.setDuration(duration);
 
             User user = userDao.findUserByEmail(userId);
@@ -111,6 +111,13 @@ public class ActivityDetectionReceiver extends BroadcastReceiver {
 
             activityDao.update(activity);
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            NotificationUtils.sendNotification(context, duration + " mins of walking automatically recorded!");
+
         }
     }
 

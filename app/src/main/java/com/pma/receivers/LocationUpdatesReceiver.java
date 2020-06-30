@@ -10,6 +10,7 @@ import com.google.android.gms.location.LocationResult;
 
 import com.pma.dao.Database;
 import com.pma.dao.LocationDao;
+import com.pma.utils.Utils;
 
 import java.util.Date;
 import java.util.List;
@@ -23,8 +24,6 @@ public class LocationUpdatesReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //NotificationUtils.sendNotification(context,"Location updates received");
-
         locationDao = Database.getInstance(context).locationDao();
 
         if (intent != null) {
@@ -34,11 +33,14 @@ public class LocationUpdatesReceiver extends BroadcastReceiver {
                 LocationResult result = LocationResult.extractResult(intent);
 
                 if (result != null) {
+                    String userEmail = Utils.getCurrentUsername(context);
+                    if(userEmail.equals("")) return;
                     List<Location> locations = result.getLocations();
                     for (Location loc: locations) {
                         com.pma.model.Location location = new com.pma.model.Location();
                         location.setLon(loc.getLongitude());
                         location.setLat(loc.getLatitude());
+                        location.setUserEmail(userEmail);
                         location.setDateAndTime(new Date(loc.getTime()));
                         SaveLocationTask task =  new SaveLocationTask();
                         task.execute(location);

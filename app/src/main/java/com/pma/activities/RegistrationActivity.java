@@ -10,6 +10,8 @@ import android.provider.ContactsContract;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.pma.R;
@@ -36,6 +38,10 @@ public class RegistrationActivity extends AppCompatActivity {
         String weight = ((EditText)findViewById(R.id.registration_weight)).getText().toString();
         String age = ((EditText)findViewById(R.id.registration_age)).getText().toString();
 
+        boolean male = true;
+        int selectedGender = ((RadioGroup)findViewById(R.id.radio_buttons)).getCheckedRadioButtonId();
+        if(selectedGender == R.id.female_radio_button) male = false;
+
         if(email.equals("") || !Patterns.EMAIL_ADDRESS.matcher((CharSequence)email).matches()){
             Toast.makeText(this, "Invalid email", Toast.LENGTH_LONG).show();
             return;
@@ -61,7 +67,7 @@ public class RegistrationActivity extends AppCompatActivity {
             return;
         }
 
-        User user =  new User(email, password, Float.parseFloat(weight), Float.parseFloat(height), Integer.parseInt(age),false);
+        User user =  new User(email, password, Float.parseFloat(weight), Float.parseFloat(height), Integer.parseInt(age),false, male);
         AddUserTask task = new AddUserTask();
         task.execute(user);
 

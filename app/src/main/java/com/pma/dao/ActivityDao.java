@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.TypeConverters;
 import androidx.room.Update;
 
@@ -34,6 +35,7 @@ public interface ActivityDao {
     @Query("SELECT * FROM activity WHERE name = 'Šetnja (automatski zabilježena)' and finished = 1 and date(date) = date(:date)")
     List<Activity> getFinishedWalkingActivitiesByDay(Date date);
 
+    @Transaction
     @Query("SELECT date(date) as day, SUM(kcalBurned) as kcalOut FROM activity WHERE finished = 1 GROUP BY date(date)")
     List<DailySummary> getDailySummariesKcalOut();
 

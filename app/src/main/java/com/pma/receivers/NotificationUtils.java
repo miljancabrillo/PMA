@@ -48,7 +48,7 @@ public class NotificationUtils {
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
                         R.mipmap.ic_launcher))
                 .setColor(Color.RED)
-                .setContentTitle("UPDATE")
+                    .setContentTitle("Workout detected!")
                 .setContentText(message)
                 .setContentIntent(notificationPendingIntent);
 

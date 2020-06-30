@@ -33,6 +33,14 @@ public class Meal {
     private float totalCarb;
     private float totalFat;
     private boolean isSynced = false;
+    private String userId;
+    @Ignore
+    private User user;
+
+    public void setUser(User user){
+        this.userId = user.getEmail();
+        this.user = user;
+    }
 
     public String getDateString(){
         return new SimpleDateFormat("dd-MM-yyyy").format(dateAndTime);

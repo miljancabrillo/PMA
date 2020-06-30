@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.pma.R;
+import com.pma.utils.Utils;
 import com.pma.view_model.AddGroceryViewModel;
 
 public class AddGroceryActivity extends AppCompatActivity {
@@ -55,6 +56,7 @@ public class AddGroceryActivity extends AppCompatActivity {
                     viewModel.getGrocery().setProteinPer100gr(Float.parseFloat(protein.getText().toString()));
                     viewModel.getGrocery().setCarbPer100gr(Float.parseFloat(carb.getText().toString()));
                     viewModel.getGrocery().setFatPer100gr(Float.parseFloat(fat.getText().toString()));
+                    viewModel.getGrocery().setUserEmail(Utils.getCurrentUsername(AddGroceryActivity.this));
                     viewModel.addGrocery();
 
                     Toast.makeText(AddGroceryActivity.this, "Grocery added", Toast.LENGTH_LONG).show();

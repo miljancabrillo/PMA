@@ -59,9 +59,9 @@ public class DaysViewModel extends AndroidViewModel {
             List<DailySummary> summariesActivities = activityDao.getDailySummariesKcalOut();
             List<DailySummary> finalList;
 
-            if(summariesMeals == null){
+            if(summariesMeals.isEmpty()){
                 finalList = summariesActivities;
-            } else if(summariesActivities == null){
+            } else if(summariesActivities.isEmpty()){
                 finalList = summariesMeals;
             } else{
                 for (DailySummary summary : summariesActivities) {
@@ -94,8 +94,8 @@ public class DaysViewModel extends AndroidViewModel {
             bmr.setUser(user);
             bmr.setDate(new Date());
 
-            //treba dodat jeri musko ili zemsko
-            bmr.setKcalBurned((10f * user.getWeight() + 6.25f * user.getHeight() - 5f * user.getAge() + 5f) * 1.2f);
+            if(user.isMale()) bmr.setKcalBurned((10f * user.getWeight() + 6.25f * user.getHeight() - 5f * user.getAge() + 5f) * 1.2f);
+            else bmr.setKcalBurned((10f * user.getWeight() + 6.25f * user.getHeight() - 5f * user.getAge() - 161f) * 1.2f);
 
             activityDao.insert(bmr);
 

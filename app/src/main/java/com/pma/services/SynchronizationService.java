@@ -1,7 +1,11 @@
 package com.pma.services;
 
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 
 import androidx.annotation.Nullable;
@@ -42,7 +46,7 @@ public class SynchronizationService extends IntentService {
     private List<Location> locations;
     private List<Meal> meals;
     private List<User> users;
-    private String ip = "192.168.1.19";
+    private String ip;
 
 
     public SynchronizationService() {
@@ -57,12 +61,26 @@ public class SynchronizationService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
 
-        ActivityTask task1 = new ActivityTask();
-        task1.execute();
+        SharedPreferences generalPreferences = getSharedPreferences("com.pma_preferences", Context.MODE_PRIVATE);
+        ip = generalPreferences.getString("serverIp", "192.168.43.50");
+        boolean mobileData = generalPreferences.getBoolean("mobileData", false);
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+
+        boolean connected = activeNetworkInfo != null && activeNetworkInfo.isConnected();
+
+        if (!connected) return;
+        final boolean isMetered = connectivityManager.isActiveNetworkMetered();
+        if (mobileData == false && isMetered == true) return;
+
+
+        Task task = new Task();
+        task.execute();
 
     }
 
-    private class ActivityTask extends AsyncTask<Void, Void, Void> {
+    private class Task extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
             String url = "http://" + ip + ":11000/syncUser";
@@ -82,7 +100,7 @@ public class SynchronizationService extends IntentService {
                     }
                 }
             } catch (Exception e) {
-                e.getMessage();
+                System.out.println(e.getLocalizedMessage());
                 return null;
             }
 
@@ -102,7 +120,7 @@ public class SynchronizationService extends IntentService {
                     }
                 }
             } catch (Exception e) {
-                e.getMessage();
+                System.out.println(e.getLocalizedMessage());
                 return null;
             }
 
@@ -122,7 +140,7 @@ public class SynchronizationService extends IntentService {
                     }
                 }
             } catch (Exception e) {
-                e.getMessage();
+                System.out.println(e.getLocalizedMessage());
                 return null;
             }
 
@@ -142,17 +160,18 @@ public class SynchronizationService extends IntentService {
                     }
                 }
             } catch (Exception e) {
-                e.getMessage();
+                System.out.println(e.getLocalizedMessage());
                 return null;
             }
 
             url = "http://" + ip + ":11000/syncActivity";
             activities = Database.getInstance(SynchronizationService.this).activityDao().getNotSyncedActivities();
-            if(!activities.isEmpty()) {
+            if (!activities.isEmpty()) {
                 for (Activity ac : activities) {
+                    ac.setUser(Database.getInstance(SynchronizationService.this).userDao().findUserByEmail(ac.getUserId()));
                     if (!ac.getName().equals("Bazalni metabolizam")) {
                         ActivityType type = Database.getInstance(SynchronizationService.this).activityTypeDao().searchById(ac.getActivityTypeId());
-                        ac.setActivityType(type);
+                        if (type != null) ac.setActivityType(type);
                         if (ac.getName().equals("Šetnja (automatski zabilježena)")) {
                             List<Location> list = Database.getInstance(SynchronizationService.this).locationDao().getLocationsInTimeRange(ac.getStartTime(), ac.getEndTime());
                             ac.setLocations(list);
@@ -180,8 +199,9 @@ public class SynchronizationService extends IntentService {
 
             url = "http://" + ip + ":11000/syncMeal";
             meals = Database.getInstance(SynchronizationService.this).mealDao().getNotSyncedMeals();
-            if(!meals.isEmpty()) {
+            if (!meals.isEmpty()) {
                 for (Meal m : meals) {
+                    m.setUser(Database.getInstance(SynchronizationService.this).userDao().findUserByEmail(m.getUserId()));
                     MealPairRelation mealPairRelation = Database.getInstance(SynchronizationService.this).mealDao().getMealWithPairs(m.getId());
                     for (GroceryAndAmountPair g : mealPairRelation.getPairs()) {
                         Grocery grocery = Database.getInstance(SynchronizationService.this).groceryDao().getGrocery(g.getGroceryId());
@@ -204,10 +224,14 @@ public class SynchronizationService extends IntentService {
                     for (int i = 0; i < meals.size(); i++) {
                         meals.get(i).setSynced(true);
                         Database.getInstance(SynchronizationService.this).mealDao().update(meals.get(i));
+                        for(GroceryAndAmountPair pair : meals.get(i).getGroceryAndAmountPairs()){
+                            pair.setSynced(true);
+                            Database.getInstance(SynchronizationService.this).pairDao().update(pair);
+                        }
                     }
                 }
             } catch (Exception e) {
-                e.getMessage();
+                System.out.println(e.getLocalizedMessage());
                 return null;
             }
 

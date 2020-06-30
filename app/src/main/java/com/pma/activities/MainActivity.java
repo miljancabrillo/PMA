@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
                 return true;
             case R.id.action_log_out:
-                SharedPreferences preferences = getSharedPreferences("com.pma.LOGIN_PREFERENCES", Context.MODE_PRIVATE);
+                SharedPreferences preferences = getSharedPreferences("com.pma.preferences", Context.MODE_PRIVATE);
                 preferences.edit().putString("userId", "").commit();
 
                 Intent logOutIntent = new Intent(this, LoginActivity.class);
@@ -155,8 +155,6 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -216,9 +214,9 @@ public class MainActivity extends AppCompatActivity {
                 new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void result) {
-                        SharedPreferences generalPreferences = getSharedPreferences("com.pma.GENERAL_PREFERENCES", Context.MODE_PRIVATE);
+                        SharedPreferences generalPreferences = getSharedPreferences("com.pma.preferences", Context.MODE_PRIVATE);
                         generalPreferences.edit().putBoolean("activityRecognitionEnabled", true).commit();
-                        Toast.makeText(MainActivity.this, "Registering successful", Toast.LENGTH_SHORT).show();
+                       //Toast.makeText(MainActivity.this, "Registering successful", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
@@ -227,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
                 new OnFailureListener() {
                     @Override
                     public void onFailure(Exception e) {
-                        Toast.makeText(MainActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(MainActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
         );
@@ -253,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupSynchronization(){
-        SharedPreferences generalPreferences = getSharedPreferences("com.pma.preferences", Context.MODE_PRIVATE);
+        SharedPreferences generalPreferences = getSharedPreferences("com.pma_preferences", Context.MODE_PRIVATE);
         boolean syncEnabled = generalPreferences.getBoolean("dataSynchronization", false);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);

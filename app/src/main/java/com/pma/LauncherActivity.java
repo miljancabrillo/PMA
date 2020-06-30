@@ -19,7 +19,7 @@ public class LauncherActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        loginPreferences = getSharedPreferences("com.pma.LOGIN_PREFERENCES", Context.MODE_PRIVATE);
+        loginPreferences = getSharedPreferences("com.pma.preferences", Context.MODE_PRIVATE);
         String userId = loginPreferences.getString("userId", "");
 
         if (userId.equals("")) {
