@@ -53,7 +53,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
                     alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                             SystemClock.elapsedRealtime(), AlarmManager.INTERVAL_HOUR * 6, pendingIntent);
-
+                    Toast.makeText(getContext(), "Synchronization enabled", Toast.LENGTH_SHORT).show();
                 } else {
                     PendingIntent pendingIntent = PendingIntent.getService(getContext(), 0,
                             intent, PendingIntent.FLAG_NO_CREATE);

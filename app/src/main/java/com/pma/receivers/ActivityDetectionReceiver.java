@@ -116,7 +116,7 @@ public class ActivityDetectionReceiver extends BroadcastReceiver {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            NotificationUtils.sendNotification(context, duration + " mins of walking automatically recorded!");
+            if(duration > 7) NotificationUtils.sendNotification(context, duration + " mins of walking automatically recorded!");
 
         }
     }

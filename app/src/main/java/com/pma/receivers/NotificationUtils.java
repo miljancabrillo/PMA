@@ -42,11 +42,11 @@ public class NotificationUtils {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
         // Define the notification settings.
-        builder.setSmallIcon(R.mipmap.ic_launcher)
+        builder.setSmallIcon(R.mipmap.logo_no_title)
                 // In a real app, you may want to use a library like Volley
                 // to decode the Bitmap.
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
-                        R.mipmap.ic_launcher))
+                        R.mipmap.logo_no_title))
                 .setColor(Color.RED)
                     .setContentTitle("Workout detected!")
                 .setContentText(message)
