@@ -29,6 +29,7 @@ public class DailySummary {
     @Override
     public boolean equals(@Nullable Object obj) {
         DailySummary ds = (DailySummary) obj;
+        if(ds.getDay() == null || this.day == null) return false;
         return DateUtils.isSameDay(ds.getDay(), this.day);
     }
 }

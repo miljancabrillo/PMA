@@ -43,10 +43,12 @@ public class Meal {
     }
 
     public String getDateString(){
+        if(dateAndTime == null) return "";
         return new SimpleDateFormat("dd-MM-yyyy").format(dateAndTime);
     }
 
     public String getTimeString(){
+        if(dateAndTime == null) return "";
         return new SimpleDateFormat("HH:mm").format(dateAndTime);
     }
 
