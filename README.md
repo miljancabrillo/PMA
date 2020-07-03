@@ -8,4 +8,4 @@ Na osnovu evidentiranih obroka i aktivnosti izračunava se ukupan unos i potroš
 
 Putem opcije Graphs iz navigation drawera korisniku je dostupan grafički prikaz unosa kalorija i makronutrijenata po danima. Potrebno je da korisnik izabere željeni makronutrijent ili količinu kalorija i datumski opseg i biti će mu prikazan stubasti grafik, gdje svaki stub predstavlja jedan dan a veličina stuba predstavlja unesenu količinu makronutrijenta ili kalorija. Opcija Profile omogućava izmjenu ličnih podataka koji su uneseni prilikom registracije. Putem opcije Settings moguće je vršiti podešavanja vezana za sinhronizaciju podataka. Sinhronizacija podataka podrazumijeva čuvanje podataka na zajednički server. Korisnik može pokrenuti sinhronizaciju ručno, a može i uključiti periodičnu sinhronizaciju. Takođe, korisnik može da izabere da li želi da se sinhronizacija vrši samo putem WiFi mreže ili i putem mobilne mreže.
 
-Demo aplikacije je dostupan na linku.
+Demo aplikacije je dostupan na https://www.youtube.com/watch?v=YVdZf85j53I.
